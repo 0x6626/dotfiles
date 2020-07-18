@@ -1,0 +1,85 @@
+#!/bin/bash
+log() {
+    printf "$2\n"
+    syslog -s -l "$1" "$2"
+}
+
+quiet_git() {
+    stdout=$(mktemp)
+    stderr=$(mktemp)
+    
+    if ! git "$@" </dev/null >$stdout 2>$stderr; then
+        cat $stderr >&2
+        rm -f $stdout $stderr
+        exit 1
+    fi
+    
+    rm -f $stdout $stderr
+}
+
+DOTFILES_DIR=~/dotfiles
+DNS_SERVERS='9.9.9.9 149.112.112.112'
+DARWIN_PRIMARY_CONNECTION='Wi-Fi'
+
+#########
+# Set DNS Servers
+#########
+
+log info "Setting $DNS_SERVERS as DNS servers on connection $DARWIN_PRIMARY_CONNECTION"
+sudo networksetup -setdnsservers $DARWIN_PRIMARY_CONNECTION $DNS_SERVERS
+
+#########
+# Install Dependencies
+#########
+
+log info "Running bootstrap script"
+source $DOTFILES_DIR/scripts/bootstrap
+
+#########
+# zsh
+#########
+
+if ! [ $SHELL == "/usr/local/bin/zsh"  ]; then
+    sudo chsh -s /usr/local/bin/zsh $USER
+fi
+
+
+if [ -e ~/.zshrc ] || [ -d ~/.zsh ]; then
+    rm -rf ~/.zsh
+    rm -f ~/.zshrc
+fi
+
+stow --dir=$HOME/dotfiles --target=$HOME zsh
+
+if ! [ -e ~/.zsh/antigen.zsh ]; then
+    mkdir ~/.zsh
+    curl -L -s git.io/antigen > ~/.zsh/antigen.zsh
+fi
+
+
+#########
+# tmux
+#########
+
+if [ -e ~/.tmux.conf ] || [ -d ~/.tmux ]; then
+    rm -rf ~/.tmux
+    rm -f ~/.tmux.conf
+fi
+
+if ! [ -e ~/.tmux/plugins/tpm ]; then
+    quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+stow --dir=$HOME/dotfiles --target=$HOME tmux
+
+#########
+# Vim
+#########
+
+if !  [ -e ~/.vim/bundle/Vundle.vim ]; then
+    quiet_git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
+rm -rf ~/.vim/bundle
+stow --dir=$HOME/dotfiles --target=$HOME vim
+vim +BundleInstall +qall

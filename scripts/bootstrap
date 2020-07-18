@@ -1,0 +1,20 @@
+#!/bin/bash
+log() {
+    printf "$2\n"
+    syslog -s -l "$1" "$2"
+}
+
+DARWIN_INSTALL_EXTENDED_CASKS=true
+
+if [[ "$(uname)" == 'Darwin' ]]; then
+    log info "Installing homebrew"
+    CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    brew analytics off
+    log info "Install homebrew packages"
+    brew install sipcalc nmap whois shellcheck stow
+    brew cask install firefox visual-studio-code wireshark
+    if [[ "$DARWIN_INSTALL_EXTENDED_CASKS" == true ]]; then
+        log info "Install extended homebrew packages"
+        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office
+    fi
+fi

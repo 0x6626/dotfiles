@@ -1,0 +1,69 @@
+preview () {
+  cupsfilter $1 | open -f -a Preview >/dev/null >&2
+}
+
+color () {
+for i in {0..255} ; do
+    printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
+    if (( i == 15 )) || (( i > 15 )) && (( (i-15) % 6 == 0 )); then
+        printf "\n";
+    fi
+done
+}
+
+environment () {
+   if [ -z "$1" ];
+   then
+      printf "supply an environment name as argv[0]\n"
+   else
+      vim ~/.zsh/$1.env
+   fi
+}
+
+pretty_json() {
+   jq . -
+}
+
+paste_standup() {
+   pbpaste > ~/dev/notes/standup/$(date "+%Y-%m-%d").md
+   mdless ~/dev/notes/standup/$(date "+%Y-%m-%d").md
+}
+
+standup() {
+   mdless ~/dev/notes/standup/stand_up-$(date "+%Y-%m-%d").md
+}
+
+get_status() {
+   curl -s -o /dev/null -w "%{http_code}" $1
+}
+
+get_macos_installer() {
+	# https://ankadocs.veertu.com/docs/getting-started/creating-your-first-vm/#download-macos-installer
+	curl --fail --silent -L -O https://raw.githubusercontent.com/munki/macadmin-scripts/master/installinstallmacos.py
+	sudo chmod +x installinstallmacos.py
+	sudo ./installinstallmacos.py --raw
+}
+
+make_macos_installer() {
+	echo "creating mountpoints.."
+	mkdir -p /tmp/app
+	echo "mounting..."
+	hdiutil attach "$1" -mountpoint /tmp/app
+	echo "cleaning drive"
+	sudo diskutil eraseDisk HFS+ CleanDrive $3
+	if [[ "$2" = "mojave" ]]
+		then
+			echo "Writing $2 to $3"
+			sudo /tmp/app/Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/CleanDrive
+			echo "Unmounting USB"
+			diskutil unmountDisk force /Volumes/Install\ macOS\ Mojave
+	else
+		echo 'no switch for $2 yet'; exit 0
+	fi
+	terminal-notifier -message "Finished installing $2 to $3" -title "Terminal: Macos Installer"
+	ehco "All done, if you don't see errors you can assume it's safe to remove USB"
+}
+
+get_sites_certificate() {
+	echo -n | openssl s_client -connect  $1:$2 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+}
