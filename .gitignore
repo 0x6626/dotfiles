@@ -2,4 +2,6 @@ vim/.vim/bundle
 zsh/.zsh/dev.env
 zsh/.zsh/aliases.local
 *.swp
-
+.gitmodules
+alfred/
+*maccloud*

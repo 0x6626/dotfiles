@@ -7,15 +7,13 @@ done
 source $ZSH_ALIASES
 
 # load functions
-source $ZSH_FUNCTIONS
+for f in ~/.zsh/*.func; do
+	source $f || printf "Failed to source '$f'\n"
+done
 
 # load antigen
 source $ZSH_ANTIGEN
 
-# load pyenv stuffs
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # plugins
 antigen use oh-my-zsh

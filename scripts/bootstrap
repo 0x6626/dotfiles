@@ -4,17 +4,55 @@ log() {
     syslog -s -l "$1" "$2"
 }
 
+quiet_git() {
+    stdout=$(mktemp)
+    stderr=$(mktemp)
+    
+    if ! git "$@" </dev/null >$stdout 2>$stderr; then
+        cat $stderr >&2
+        rm -f $stdout $stderr
+        exit 1
+    fi
+    
+    rm -f $stdout $stderr
+}
+
 DARWIN_INSTALL_EXTENDED_CASKS=true
 
 if [[ "$(uname)" == 'Darwin' ]]; then
     log info "Installing homebrew"
-    CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+		if ! type -P brew; then
+    	CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+		fi
     brew analytics off
     log info "Install homebrew packages"
-    brew install sipcalc nmap whois shellcheck stow
-    brew cask install firefox visual-studio-code wireshark
-    if [[ "$DARWIN_INSTALL_EXTENDED_CASKS" == true ]]; then
+    brew install sipcalc nmap whois shellcheck stow antigen tmux svn azure-cli	
+		if [[ "$DARWIN_INSTALL_EXTENDED_CASKS" == true ]]; then
         log info "Install extended homebrew packages"
-        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office
+        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office font-source-code-pro-for-powerline slack alfred little-snitch micro-snitch homebrew/cask-drivers/displaylink notion zoom textual microsoft-teams
     fi
 fi
+
+#########
+# zsh
+#########
+
+rm -rf ~/.zsh
+rm -f ~/.zshrc
+		
+#########
+# tmux
+#########
+
+rm -rf ~/.tmux
+rm -f ~/.tmux.conf
+
+quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	
+  	
+#########
+# Vim
+#########
+
+rm -rf ~/.vim/bundle
+quiet_git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim

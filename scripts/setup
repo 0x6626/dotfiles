@@ -39,47 +39,32 @@ source $DOTFILES_DIR/scripts/bootstrap
 # zsh
 #########
 
-if ! [ $SHELL == "/usr/local/bin/zsh"  ]; then
-    sudo chsh -s /usr/local/bin/zsh $USER
+if ! [ $SHELL == "/bin/zsh"  ]; then
+    sudo chsh -s /bin/zsh $USER
 fi
 
-
-if [ -e ~/.zshrc ] || [ -d ~/.zsh ]; then
-    rm -rf ~/.zsh
-    rm -f ~/.zshrc
-fi
 
 stow --dir=$HOME/dotfiles --target=$HOME zsh
-
-if ! [ -e ~/.zsh/antigen.zsh ]; then
-    mkdir ~/.zsh
-    curl -L -s git.io/antigen > ~/.zsh/antigen.zsh
-fi
-
 
 #########
 # tmux
 #########
 
-if [ -e ~/.tmux.conf ] || [ -d ~/.tmux ]; then
-    rm -rf ~/.tmux
-    rm -f ~/.tmux.conf
-fi
-
-if ! [ -e ~/.tmux/plugins/tpm ]; then
-    quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
 
 stow --dir=$HOME/dotfiles --target=$HOME tmux
+tmux start-server
+tmux source ~/.tmux.conf
 
 #########
 # Vim
 #########
 
-if !  [ -e ~/.vim/bundle/Vundle.vim ]; then
-    quiet_git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-
-rm -rf ~/.vim/bundle
 stow --dir=$HOME/dotfiles --target=$HOME vim
 vim +BundleInstall +qall
+
+#########
+# Alfred
+#########
+
+rm -rf "$DOTFILES_DIR/alfred"
+git submodule add --force git@github.com:nodeselector/alfred.git "$DOTFILES_DIR/alfred"

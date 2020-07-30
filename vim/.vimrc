@@ -8,7 +8,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'scrooloose/nerdtree'
 Bundle 'myusuf3/numbers.vim'
-Bundle 'arcticicestudio/nord-vim'
 Bundle 'vim-airline/vim-airline'
 Bundle 'tpope/vim-surround'
 Plugin 'masukomi/vim-markdown-folding'
@@ -19,7 +18,6 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
 call vundle#end()
 
-colorscheme nord
 let g:airline_powerline_fonts = 1
 
 let NERDTreeShowHidden=1

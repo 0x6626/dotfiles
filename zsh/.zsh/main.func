@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 preview () {
   cupsfilter $1 | open -f -a Preview >/dev/null >&2
 }
