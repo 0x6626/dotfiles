@@ -26,10 +26,10 @@ if [[ "$(uname)" == 'Darwin' ]]; then
 		fi
     brew analytics off
     log info "Install homebrew packages"
-    brew install sipcalc nmap whois shellcheck stow antigen tmux svn azure-cli	
+    brew install sipcalc nmap whois shellcheck stow antigen tmux svn azure-cli go mas coreutils
 		if [[ "$DARWIN_INSTALL_EXTENDED_CASKS" == true ]]; then
         log info "Install extended homebrew packages"
-        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office font-source-code-pro-for-powerline slack alfred little-snitch micro-snitch homebrew/cask-drivers/displaylink notion zoom textual microsoft-teams
+        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office font-source-code-pro-for-powerline slack alfred little-snitch micro-snitch homebrew/cask-drivers/displaylink notion zoom textual microsoft-teams spotify anaconda
     fi
 fi
 
