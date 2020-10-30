@@ -48,7 +48,7 @@ nnoremap <silent> <leader>f :call FZFOpen(":Rg")<CR>
 nnoremap <silent> <leader>fh :call FZFOpen(":Files ~")<CR>
 nnoremap <silent> <leader>zh :call FZFOpen(":History")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
-nnoremap <silent> <Leader>e :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+nnoremap <silent> <Leader>e :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR><bar>:nohls<CR>
 nnoremap <silent> <Leader>w :set list!<CR>
 map <silent> <leader>s :set spell!<CR>
 map <C-n> :NERDTreeToggle<CR>
@@ -71,7 +71,6 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 syntax on
 set cursorline
 set hlsearch
-
 
 " 🎨 apperance
 set number
