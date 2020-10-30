@@ -78,6 +78,10 @@ set number
 colorscheme dogrun
 set mouse=a
 
+" 🌲 nerdtree
+let NERDTreeShowHidden=1
+
+
 " 🚗 auto complete
 set completefunc=emoji#complete
 set wildmenu
