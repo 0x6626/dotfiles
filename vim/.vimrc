@@ -6,6 +6,7 @@
 " 🐜 behavior
 set nocompatible
 filetype off
+set smartcase
 
 " 🔌 plugins
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -23,6 +24,7 @@ Plugin 'preservim/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/vim-emoji'
 Plugin 'Lenovsky/nuake'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -36,6 +38,7 @@ function! FZFOpen(cmd)
 endfunction
 
 " ⌨ shortcuts
+map <silent> <leader>nh :nohls <CR>
 nnoremap <silent> <C-w> :bdel<CR>
 nnoremap <silent> <Leader>ve :call FZFOpen(":e $MYVIMRC")<CR>
 nnoremap <silent> <Leader>vr :source $MYVIMRC<CR>
@@ -47,11 +50,16 @@ nnoremap <silent> <leader>zh :call FZFOpen(":History")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
 nnoremap <silent> <Leader>e :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 nnoremap <silent> <Leader>w :set list!<CR>
+map <silent> <leader>s :set spell!<CR>
 map <C-n> :NERDTreeToggle<CR>
 set pastetoggle=<Leader>p
 nnoremap <silent> <Leader>t :Nuake<CR>
 inoremap <silent> <Leader>t <C-\><C-n>:Nuake<CR>
 tnoremap <silent> <Leader>t <C-\><C-n>:Nuake<CR>
+
+" ✍ spell check
+syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
+syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
 
 " 🛰 spacing 
 filetype plugin indent on
@@ -61,6 +69,9 @@ set autoindent
 set smartindent
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 syntax on
+set cursorline
+set hlsearch
+
 
 " 🎨 apperance
 set number
