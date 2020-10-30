@@ -41,10 +41,10 @@ endfunction
 map <silent> <leader>nh :nohls <CR>
 nnoremap <silent> <C-w> :bdel<CR>
 nnoremap <silent> <Leader>ve :call FZFOpen(":e $MYVIMRC")<CR>
-nnoremap <silent> <Leader>vr :source $MYVIMRC<CR>
+nnoremap <silent> <Leader>vr :source $MYVIMRC<CR><bar>:nohls<CR>
 nnoremap <silent> <Leader>vp :PluginInstall<CR>
 nnoremap <silent> <leader><leader> :call FZFOpen(":Buffers")<CR>
-nnoremap <silent> <leader>f :call FZFOpen(":Rg")<CR>
+nnoremap <silent> <leader>f :call FZFOpen(":Files")<CR>
 nnoremap <silent> <leader>fh :call FZFOpen(":Files ~")<CR>
 nnoremap <silent> <leader>zh :call FZFOpen(":History")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
