@@ -34,7 +34,7 @@ function! FZFOpen(cmd)
         wincmd l
         wincmd k
     endif
-    e:xe a:cmd
+    exe a:cmd
 endfunction
 
 " ⌨ shortcuts
@@ -80,6 +80,7 @@ set mouse=a
 
 " 🌲 nerdtree
 let NERDTreeShowHidden=1
+let NERDTreeChDirMode=2
 
 
 " 🚗 auto complete
