@@ -1,9 +1,4 @@
 #!/bin/bash
-log() {
-    printf "$2\n"
-    syslog -s -l "$1" "$2"
-}
-
 quiet_git() {
     stdout=$(mktemp)
     stderr=$(mktemp)
@@ -17,20 +12,12 @@ quiet_git() {
     rm -f $stdout $stderr
 }
 
-DARWIN_INSTALL_EXTENDED_CASKS=true
-
 if [[ "$(uname)" == 'Darwin' ]]; then
-    log info "Installing homebrew"
-		if ! type -P brew; then
+		if ! type -P brew >/dev/null; then
     	CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 		fi
     brew analytics off
-    log info "Install homebrew packages"
-    brew install sipcalc nmap whois shellcheck stow antigen tmux svn azure-cli go mas coreutils
-		if [[ "$DARWIN_INSTALL_EXTENDED_CASKS" == true ]]; then
-        log info "Install extended homebrew packages"
-        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office font-source-code-pro-for-powerline slack alfred little-snitch micro-snitch homebrew/cask-drivers/displaylink notion zoom textual microsoft-teams spotify anaconda
-    fi
+    brew bundle
 fi
 
 #########

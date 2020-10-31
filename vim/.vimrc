@@ -74,7 +74,7 @@ set hlsearch
 
 " 🎨 apperance
 set number
-colorscheme dogrun
+silent! colorscheme dogrun
 set mouse=a
 
 " 🌲 nerdtree
