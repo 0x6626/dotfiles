@@ -1,4 +1,7 @@
 #!/bin/bash
+
+DOTFILES_DIR=~/src/dotfiles
+
 quiet_git() {
     stdout=$(mktemp)
     stderr=$(mktemp)
@@ -12,52 +15,38 @@ quiet_git() {
     rm -f "$stdout" "$stderr"
 }
 
-DOTFILES_DIR=~/dotfiles
-DNS_SERVERS='9.9.9.9 149.112.112.112'
-DARWIN_PRIMARY_CONNECTION='Wi-Fi'
 
-#########
-# Set DNS Servers
-#########
-
-sudo networksetup -setdnsservers $DARWIN_PRIMARY_CONNECTION $DNS_SERVERS
-
-#########
-# Install Dependencies
-#########
+if $RESET; then
+	rm -rf ~/.zsh
+	rm -f ~/.zshrc
+	rm -rf ~/.tmux
+	rm -f ~/.tmux.conf
+	rm -rf ~/.vim/bundle
+	rm -rf "$HOME/src/alfred"
+fi
 
 source "$DOTFILES_DIR/scripts/bootstrap"
-
-#########
-# zsh
-#########
 
 if ! [ "$SHELL" == "/bin/zsh"  ]; then
     sudo chsh -s /bin/zsh "$USER"
 fi
 
+#########
+# common
+#########
 
 stow --dir="$DOTFILES_DIR" --target="$HOME" zsh
-
-#########
-# tmux
-#########
-
-
 stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
 tmux start-server
 tmux source ~/.tmux.conf
-
-#########
-# Vim
-#########
 
 stow --dir="$DOTFILES_DIR" --target="$HOME" vim
 vim +BundleInstall +qall
 
 #########
-# Alfred
+# macos
 #########
 
-rm -rf "$HOME/src/alfred"
-git clone git@github.com:nodeselector/alfred.git "$HOME/src/alfred"
+if [[ "$(uname)" == 'Darwin' ]]; then
+	"$DOTFILES_DIR/.macos"
+fi

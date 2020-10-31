@@ -1,4 +1,9 @@
 #!/bin/bash
+
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
+ALFRED_DIR="$HOME/src/alfred"
+
 quiet_git() {
     stdout=$(mktemp)
     stderr=$(mktemp)
@@ -18,28 +23,24 @@ if [[ "$(uname)" == 'Darwin' ]]; then
 		fi
     brew analytics off
     brew bundle
+
+	if [[ -d "$ALFRED_DIR" ]]; then
+		git -C "$ALFRED_DIR" pull
+	else
+		quiet_git clone git@github.com:nodeselector/alfred.git "$ALFRED_DIR"
+	fi
 fi
 
-#########
-# zsh
-#########
+# TPM
+if [[ -d "$TPM_DIR" ]]; then
+	git -C "$TPM_DIR" pull
+else
+	quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
-rm -rf ~/.zsh
-rm -f ~/.zshrc
-		
-#########
-# tmux
-#########
-
-rm -rf ~/.tmux
-rm -f ~/.tmux.conf
-
-quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	
-  	
-#########
-# Vim
-#########
-
-rm -rf ~/.vim/bundle
-quiet_git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# Vundle
+if [[ -d "$VUNDLE_DIR" ]]; then
+	git -C "$VUNDLE_DIR" pull
+else
+	quiet_git clone https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_DIR"
+fi

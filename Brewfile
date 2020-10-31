@@ -1,3 +1,4 @@
+brew "macvim"
 brew "sipcalc"
 brew "nmap"
 brew "whois"
@@ -12,6 +13,10 @@ brew "mas"
 brew "coreutils"
 brew "lastpass-cli"
 
+cask "obsidian"
+cask "docker"
+cask "amethyst"
+cask "google-chrome"
 cask "vagrant"
 cask "vagrant-manager"
 cask "virtualbox"
@@ -31,3 +36,6 @@ cask "spotify"
 cask "anaconda"
 cask "signal"
 cask "telegram-desktop"
+
+
+mas "Bear", id: 1091189122 
