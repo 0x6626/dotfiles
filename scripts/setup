@@ -16,7 +16,7 @@ quiet_git() {
 }
 
 
-if $RESET; then
+if [ "$RESET" == 'true' ]; then
 	rm -rf ~/.zsh
 	rm -f ~/.zshrc
 	rm -rf ~/.tmux
