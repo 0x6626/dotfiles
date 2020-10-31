@@ -1,8 +1,8 @@
 #!/bin/bash
-log() {
-    printf "$2\n"
-    syslog -s -l "$1" "$2"
-}
+
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
+ALFRED_DIR="$HOME/src/alfred"
 
 quiet_git() {
     stdout=$(mktemp)
@@ -17,42 +17,30 @@ quiet_git() {
     rm -f $stdout $stderr
 }
 
-DARWIN_INSTALL_EXTENDED_CASKS=true
-
 if [[ "$(uname)" == 'Darwin' ]]; then
-    log info "Installing homebrew"
-		if ! type -P brew; then
+		if ! type -P brew >/dev/null; then
     	CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 		fi
     brew analytics off
-    log info "Install homebrew packages"
-    brew install sipcalc nmap whois shellcheck stow antigen tmux svn azure-cli go mas coreutils
-		if [[ "$DARWIN_INSTALL_EXTENDED_CASKS" == true ]]; then
-        log info "Install extended homebrew packages"
-        brew cask install vagrant vagrant-manager virtualbox virtualbox-extension-pack microsoft-office font-source-code-pro-for-powerline slack alfred little-snitch micro-snitch homebrew/cask-drivers/displaylink notion zoom textual microsoft-teams spotify anaconda
-    fi
+    brew bundle
+
+	if [[ -d "$ALFRED_DIR" ]]; then
+		git -C "$ALFRED_DIR" pull
+	else
+		quiet_git clone git@github.com:nodeselector/alfred.git "$ALFRED_DIR"
+	fi
 fi
 
-#########
-# zsh
-#########
+# TPM
+if [[ -d "$TPM_DIR" ]]; then
+	git -C "$TPM_DIR" pull
+else
+	quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
-rm -rf ~/.zsh
-rm -f ~/.zshrc
-		
-#########
-# tmux
-#########
-
-rm -rf ~/.tmux
-rm -f ~/.tmux.conf
-
-quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	
-  	
-#########
-# Vim
-#########
-
-rm -rf ~/.vim/bundle
-quiet_git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# Vundle
+if [[ -d "$VUNDLE_DIR" ]]; then
+	git -C "$VUNDLE_DIR" pull
+else
+	quiet_git clone https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_DIR"
+fi

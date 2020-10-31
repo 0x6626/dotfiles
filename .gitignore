@@ -4,4 +4,4 @@ zsh/.zsh/aliases.local
 *.swp
 .gitmodules
 alfred/
-*maccloud*
+Brewfile.lock.json
