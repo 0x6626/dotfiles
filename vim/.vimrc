@@ -17,6 +17,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'wadackel/vim-dogrun'
+Plugin 'arcticicestudio/nord-vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'darfink/vim-plist'
 Plugin 'tarekbecker/vim-yaml-formatter'
@@ -25,6 +26,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/vim-emoji'
 Plugin 'Lenovsky/nuake'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'preservim/nerdcommenter'
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -38,13 +40,16 @@ function! FZFOpen(cmd)
 endfunction
 
 " ⌨ shortcuts
+nnoremap <Leader>yf :let @+=expand('%:p')<CR>
 map <silent> <leader>nh :nohls <CR>
 nnoremap <silent> <C-w> :bdel<CR>
+map <D-/> <Leader>c<Space>
 nnoremap <silent> <Leader>ve :call FZFOpen(":e $MYVIMRC")<CR>
 nnoremap <silent> <Leader>vr :source $MYVIMRC<CR><bar>:nohls<CR>
 nnoremap <silent> <Leader>vp :PluginInstall<CR>
 nnoremap <silent> <leader><leader> :call FZFOpen(":Buffers")<CR>
 nnoremap <silent> <leader>f :call FZFOpen(":Files")<CR>
+nnoremap <silent> <leader>ff :call FZFOpen(":Rg")<CR>
 nnoremap <silent> <leader>fh :call FZFOpen(":Files ~")<CR>
 nnoremap <silent> <leader>zh :call FZFOpen(":History")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
@@ -74,13 +79,17 @@ set hlsearch
 
 " 🎨 apperance
 set number
-silent! colorscheme dogrun
+"silent! colorscheme dogrun
+silent! colorscheme nord
 set mouse=a
 
 " 🌲 nerdtree
 let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 
+" 📝 nerdcommenter
+  let g:NERDSpaceDelims = 1
+  let g:NERDDefaultAlign = 'left'
 
 " 🚗 auto complete
 set completefunc=emoji#complete
