@@ -1,4 +1,5 @@
 #!/bin/bash
+et -e
 
 DOTFILES_DIR=~/src/dotfiles
 
@@ -49,4 +50,10 @@ vim +BundleInstall +qall
 
 if [[ "$(uname)" == 'Darwin' ]]; then
 	"$DOTFILES_DIR/.macos"
+elif [[ "$(uname)" == 'Linux' ]]; then
+    MACHINE_MODEL=$(sudo dmidecode | grep 'Version:' | sudo dmidecode | grep 'SKU Number' | head -1 | awk '{ print $4 }')
+    if [[ "$MACHINE_MODEL" == 'P52s' ]]; then
+        gsettings set org.gnome.desktop.peripherals.touchpad send-events disabled
+    fi
 fi
+
