@@ -133,11 +133,11 @@ chflags nohidden ${HOME}/Library
 # Set DNS on primary connection
 sudo networksetup -setdnsservers $DARWIN_PRIMARY_CONNECTION $DNS_SERVERS
 
-# Set Terminal Startup Window Settings to Pro
-defaults write com.apple.Terminal "Startup Window Settings" Pro
+# Set Terminal Startup Window Settings to Nord
+defaults write com.apple.Terminal "Startup Window Settings" Nord
 
-# Set Terminal Default Window Settings to Pro
-defaults write com.apple.Terminal "Default Window Settings" Pro
+# Set Terminal Default Window Settings to Nord
+defaults write com.apple.Terminal "Default Window Settings" Nord
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #

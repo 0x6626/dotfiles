@@ -48,3 +48,7 @@ fi
 
 # 🐻 bear cli
 BEAR_AC_ZSH_SETUP_PATH=/Users/jeffmartin/Library/Caches/@sloansparger/bear/autocomplete/zsh_setup && test -f $BEAR_AC_ZSH_SETUP_PATH && source $BEAR_AC_ZSH_SETUP_PATH;
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# Local Config
+source ~/.zshrc.local

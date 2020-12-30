@@ -27,6 +27,7 @@ Plugin 'junegunn/vim-emoji'
 Plugin 'Lenovsky/nuake'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'preservim/nerdcommenter'
+Plugin 'alfredodeza/pytest.vim'
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -44,6 +45,7 @@ nnoremap <Leader>yf :let @+=expand('%:p')<CR>
 map <silent> <leader>nh :nohls <CR>
 nnoremap <silent> <C-w> :bdel<CR>
 map <D-/> <Leader>c<Space>
+nmap <Leader>nr :NERDTreeFocus<cr>R<c-w><c-p>
 nnoremap <silent> <Leader>ve :call FZFOpen(":e $MYVIMRC")<CR>
 nnoremap <silent> <Leader>vr :source $MYVIMRC<CR><bar>:nohls<CR>
 nnoremap <silent> <Leader>vp :PluginInstall<CR>
