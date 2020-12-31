@@ -69,3 +69,13 @@ make_macos_installer() {
 get_sites_certificate() {
 	echo -n | openssl s_client -connect  $1:$2 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
 }
+
+get_file_mode() {
+	if [[ "$(uname)" == 'Darwin' ]]; then
+		stat -f '%A %a %N' *
+	elif [[ "$(uname)" == 'Linux' ]]; then
+		stat -c '%A %a' *
+	fi
+}
+
+	
