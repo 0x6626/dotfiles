@@ -23,6 +23,7 @@ if [ "$RESET" == 'true' ]; then
 	rm -rf ~/.tmux
 	rm -f ~/.tmux.conf
 	rm -rf ~/.vim/bundle
+    rm -f ~/.gitconfig
 	rm -rf "$HOME/src/alfred"
 fi
 
@@ -43,6 +44,8 @@ tmux source ~/.tmux.conf
 
 stow --dir="$DOTFILES_DIR" --target="$HOME" vim
 vim +BundleInstall +qall
+
+stow --dir="$DOTFILES_DIR" --target="$HOME" git
 
 #########
 # macos

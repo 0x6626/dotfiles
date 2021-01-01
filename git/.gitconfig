@@ -1,0 +1,11 @@
+[user]
+	name = Jeff Martin
+	email = nodeselector@github.com
+[alias]
+    push-u = !git push -u origin $(git branch --show-current)
+    wip = !git add -A && git commit -m 'wip' --no-verify  && git push-u
+   	squash = !git reset $(git merge-base master $(git branch --show-current))
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+	prompt = false
