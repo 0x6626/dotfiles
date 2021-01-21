@@ -5,6 +5,10 @@ email = nodeselector@github.com
 push-u = !git push -u origin $(git branch --show-current)
 wiki = !git add -A && git commit -m "sync" --no-verify && git push-u
 wip = !git add -A && git commit -m 'wip' --no-verify && git push-u
+wipo = wip
+wiop = wip
+w = wip
+w = wip
 squash = !git reset $(git merge-base master $(git branch --show-current))
 [merge]
 tool = vimdiff

@@ -8,3 +8,8 @@ alias ap='ansible-playbook'
 alias ag='ansible-galaxy'
 alias av='ansible-vault'
 alias unetbootin='sudo /Applications/unetbootin.app/Contents/MacOS/unetbootin'
+alias git='g'
+alias ap='ansible-playbook'
+alias d='docker'
+alias dc='docker-compose'
+
