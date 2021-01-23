@@ -1,16 +1,12 @@
 #!/bin/bash
-CALLED_DIR=$(pwd)
-on_exit() {
-    cd "$CALLED_DIR"
-}
-trap on_exit EXIT
 
 DOTFILES_DIR="$HOME"/src/dotfiles
 SCRIPTS_DIR="$DOTFILES_DIR"/scripts
 UTILS="$SCRIPTS_DIR"/utils
-
 # shellcheck source=utils
 [ -f "$UTILS" ] && source "$UTILS"
+
+trap on_exit EXIT
 
 user_help() {
     echo "nodeselector's dotfiles"

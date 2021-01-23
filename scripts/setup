@@ -1,13 +1,12 @@
-
+#!/bin/bash
 set -e
-CALLED_DIR=$(pwd)
-trap 'cd $CALLED_DIR' EXIT
+
+# shellcheck source=utils
+[ -f "$UTILS" ] && source "$UTILS"
+trap on_exit EXIT
 
 DOTFILES_DIR="$HOME"/src/dotfiles
 SCRIPTS_DIR="$DOTFILES_DIR"/scripts
 UTILS="$SCRIPTS_DIR"/utils
-
-# shellcheck source=utils
-[ -f "$UTILS" ] && source "$UTILS"
 
 setup

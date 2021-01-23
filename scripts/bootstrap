@@ -1,8 +1,14 @@
 #!/bin/bash
 
+# shellcheck source=utils
+[ -f "$UTILS" ] && source "$UTILS"
+
+trap on_exit EXIT
+
 TPM_DIR="$HOME/.tmux/plugins/tpm"
 VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
 UNAME=$(uname)
+HAMMERSPOON="$HOME/.hammerspoon/Spoons"
 
 if [[ "$UNAME" == 'Darwin' ]]; then
 	if ! type -P brew >/dev/null; then
@@ -11,9 +17,14 @@ if [[ "$UNAME" == 'Darwin' ]]; then
 	brew analytics off
 	brew bundle
 
-elif [[ "$UNAME" == 'Linux' ]]; then
-	DISTRO=$(lsb_release -d | awk '{ print $2 }')
+	if ! [ -d "$HAMMERSPOON/ControlEscape.spoon" ]; then
+		quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git "$HAMMERSPOON/ControlEscape.spoon"
+		"$HAMMERSPOON/ControlEscape.spoon./scripts/setup"
+	fi
+fi
 
+if [[ "$UNAME" == 'Linux' ]]; then
+	DISTRO=$(lsb_release -d | awk '{ print $2 }')
 	if [[ "$DISTRO" == 'Ubuntu' ]]; then
 		sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 
@@ -54,7 +65,6 @@ elif [[ "$UNAME" == 'Linux' ]]; then
 	sudo snap install microk8s --classic --channel=1.19
 	sudo snap install todoist
 	sudo snap install --dangerous obsidian_0.10.1_amd64.snap && rm obsidian_0.10.1_amd64.snap*
-
 fi
 
 # TPM

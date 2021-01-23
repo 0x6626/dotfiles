@@ -1,5 +1,11 @@
 #!/bin/bash
 
+CALLED_DIR=$(pwd)
+on_exit() {
+    cd "$CALLED_DIR"
+}
+trap on_exit EXIT
+
 DOTFILES_DIR="$HOME"/src/dotfiles
 SCRIPTS_DIR="$DOTFILES_DIR"/scripts
 UNAME=$(uname)
