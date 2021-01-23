@@ -2,36 +2,16 @@
 
 TPM_DIR="$HOME/.tmux/plugins/tpm"
 VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
-ALFRED_DIR="$HOME/src/alfred"
+UNAME=$(uname)
 
-quiet_git() {
-    stdout=$(mktemp)
-    stderr=$(mktemp)
-    
-    if ! git "$@" </dev/null >$stdout 2>$stderr; then
-        cat $stderr >&2
-        rm -f $stdout $stderr
-        exit 1
-    fi
-    
-    rm -f $stdout $stderr
-}
-
-OS=$(uname)
-
-if [[ "$OS" == 'Darwin' ]]; then
-		if ! type -P brew >/dev/null; then
-    	CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-		fi
-    brew analytics off
-    brew bundle
-
-	if [[ -d "$ALFRED_DIR" ]]; then
-		git -C "$ALFRED_DIR" pull
-	else
-		quiet_git clone git@github.com:nodeselector/alfred.git "$ALFRED_DIR"
+if [[ "$UNAME" == 'Darwin' ]]; then
+	if ! type -P brew >/dev/null; then
+		CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	fi
-elif [[ "$OS" == 'Linux' ]]; then
+	brew analytics off
+	brew bundle
+
+elif [[ "$UNAME" == 'Linux' ]]; then
 	DISTRO=$(lsb_release -d | awk '{ print $2 }')
 
 	if [[ "$DISTRO" == 'Ubuntu' ]]; then
@@ -42,9 +22,9 @@ elif [[ "$OS" == 'Linux' ]]; then
 		sudo apt-add-repository https://cli.github.com/packages
 
 		# code
-		wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+		wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
 		sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-		sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+		sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repUNAME/code stable main" > /etc/apt/sources.list.d/vscode.list'
 		rm packages.microsoft.gpg
 
 		# docker
@@ -64,8 +44,8 @@ elif [[ "$OS" == 'Linux' ]]; then
 		wget https://github.com/obsidianmd/obsidian-releases/releases/download/v0.10.1/obsidian_0.10.1_amd64.snap
 	fi
 	sudo apt update && sudo apt-get -y install git vim tmux stow zsh gh code qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst \
-									   virt-manager vagrant vagrant-libvirt docker-ce docker-ce-cli containerd.io keepassxc brave-browser kubectl \
-									   jq whois dnsutils sipcalc nmap virt-viewer remmina tcpdump
+		virt-manager vagrant vagrant-libvirt docker-ce docker-ce-cli containerd.io keepassxc brave-browser kubectl \
+		jq whois dnsutils sipcalc nmap virt-viewer remmina tcpdump
 
 	echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
 	sudo DEBIAN_FRONTEND=noninteractive apt-get -y install wireshark
@@ -74,8 +54,6 @@ elif [[ "$OS" == 'Linux' ]]; then
 	sudo snap install microk8s --classic --channel=1.19
 	sudo snap install todoist
 	sudo snap install --dangerous obsidian_0.10.1_amd64.snap && rm obsidian_0.10.1_amd64.snap*
-
-
 
 fi
 

@@ -52,5 +52,3 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # Local Config
 source ~/.zshrc.local
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform

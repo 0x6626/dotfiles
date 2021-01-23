@@ -13,4 +13,5 @@ alias gw='g wip'
 alias ap='ansible-playbook'
 alias d='docker'
 alias dc='docker-compose'
+alias dotfiles='~/src/dotfiles/scripts/dotfiles'
 

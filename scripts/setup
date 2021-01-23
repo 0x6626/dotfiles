@@ -1,62 +1,13 @@
-#!/bin/bash
+
 set -e
+CALLED_DIR=$(pwd)
+trap 'cd $CALLED_DIR' EXIT
 
-DOTFILES_DIR=~/src/dotfiles
+DOTFILES_DIR="$HOME"/src/dotfiles
+SCRIPTS_DIR="$DOTFILES_DIR"/scripts
+UTILS="$SCRIPTS_DIR"/utils
 
-quiet_git() {
-    stdout=$(mktemp)
-    stderr=$(mktemp)
-    
-    if ! git "$@" </dev/null >"$stdout" 2>"$stderr"; then
-        cat "$stderr" >&2
-        rm -f "$stdout" "$stderr"
-        exit 1
-    fi
-    
-    rm -f "$stdout" "$stderr"
-}
+# shellcheck source=utils
+[ -f "$UTILS" ] && source "$UTILS"
 
-
-if [ "$RESET" == 'true' ]; then
-	rm -rf ~/.zsh
-	rm -f ~/.zshrc
-	rm -rf ~/.tmux
-	rm -f ~/.tmux.conf
-	rm -rf ~/.vim/bundle
-    rm -f ~/.gitconfig
-	rm -rf "$HOME/src/alfred"
-fi
-
-source "$DOTFILES_DIR/scripts/bootstrap"
-
-if ! [ "$SHELL" == "/bin/zsh"  ]; then
-    sudo chsh -s /bin/zsh "$USER"
-fi
-
-#########
-# common
-#########
-
-stow --dir="$DOTFILES_DIR" --target="$HOME" zsh
-stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
-tmux start-server
-tmux source ~/.tmux.conf
-
-stow --dir="$DOTFILES_DIR" --target="$HOME" vim
-vim +BundleInstall +qall
-
-stow --dir="$DOTFILES_DIR" --target="$HOME" git
-
-#########
-# macos
-#########
-
-if [[ "$(uname)" == 'Darwin' ]]; then
-	"$DOTFILES_DIR/.macos"
-elif [[ "$(uname)" == 'Linux' ]]; then
-    MACHINE_MODEL=$(sudo dmidecode | grep 'Version:' | sudo dmidecode | grep 'SKU Number' | head -1 | awk '{ print $4 }')
-    if [[ "$MACHINE_MODEL" == 'P52s' ]]; then
-        gsettings set org.gnome.desktop.peripherals.touchpad send-events disabled
-    fi
-fi
-
+setup
