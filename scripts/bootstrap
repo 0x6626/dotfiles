@@ -21,6 +21,11 @@ if [[ "$UNAME" == 'Darwin' ]]; then
 		quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git "$HAMMERSPOON/ControlEscape.spoon"
 		"$HAMMERSPOON/ControlEscape.spoon./scripts/setup"
 	fi
+
+	if ! [ -d "$HAMMERSPOON/Ki.spoon" ]; then
+		curl -L https://github.com/andweeb/Ki/releases/download/v1.6.4/Ki.spoon.zip >/tmp/Ki.spoon.zip
+		unzip /tmp/Ki.spoon.zip -d "$HAMMERSPOON"
+	fi
 fi
 
 if [[ "$UNAME" == 'Linux' ]]; then
