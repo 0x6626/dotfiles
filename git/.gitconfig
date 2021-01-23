@@ -1,11 +1,42 @@
 [user]
-	name = Jeff Martin
-	email = nodeselector@github.com
+name = Jeff Martin
+email = nodeselector@github.com
+
 [alias]
-    push-u = !git push -u origin $(git branch --show-current)
-    wip = !git add -A && git commit -m 'wip' --no-verify  && git push-u
-   	squash = !git reset $(git merge-base master $(git branch --show-current))
-[merge]
-	tool = vimdiff
-	conflictstyle = diff3
-	prompt = false
+upstream-push = !git push -u origin $(git branch --show-current)
+push-u = upstream-push
+squash = !git reset $(git merge-base master $(git branch --show-current))
+upstream-merge = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master && git push"
+merge-u = upstream-merge
+graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+force = git push --force-with-lease
+
+[core]
+pager = "delta --light"
+editor = "code --wait"
+[core]
+pager = delta
+
+[interactive]
+diffFilter = delta --color-only
+
+[delta]
+features = side-by-side line-numbers decorations
+whitespace-error-style = 22 reverse
+side-by-side = true
+paging=always
+line-numbers = true
+
+[delta "decorations"]
+commit-decoration-style = bold yellow box ul
+file-style = bold yellow ul
+file-decoration-style = none
+
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
+[commit]
+template = ~/.gitmessage
