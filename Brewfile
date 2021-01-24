@@ -1,3 +1,4 @@
+
 brew "antigen"
 brew "azure-cli"
 brew "coreutils"
@@ -18,6 +19,7 @@ cask "anaconda"
 cask "docker"
 cask "dropbox"
 cask "google-chrome"
+cask "google-chrome-canary"
 cask "hammerspoon"
 cask "homebrew/cask-drivers/displaylink"
 cask "little-snitch"
