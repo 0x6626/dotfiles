@@ -2,6 +2,13 @@
 name = Jeff Martin
 email = nodeselector@github.com
 
+[github]
+user = nodeselector
+[push]
+default = simple
+[credential]
+helper = osxkeychain
+
 [alias]
 upstream-push = !git push -u origin $(git branch --show-current)
 push-u = upstream-push
