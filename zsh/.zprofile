@@ -1,4 +1,5 @@
 eval "$(ssh-agent -s)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
 if [[ "$(uname)" == 'Linux' ]]; then
@@ -14,3 +15,4 @@ EOF
 
 	xmodmap ~/.Xmodmap
 fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
