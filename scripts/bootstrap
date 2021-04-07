@@ -59,14 +59,13 @@ fi
 
 # TPM
 if [[ -d "$TPM_DIR" ]]; then
-	git -C "$TPM_DIR" pull
-else
-	quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	sudo rm -r "$TPM_DIR"
 fi
+
+quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Vundle
 if [[ -d "$VUNDLE_DIR" ]]; then
-	git -C "$VUNDLE_DIR" pull
-else
-	quiet_git clone https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_DIR"
+	sudo rm -r "$VUNDLE_DIR"
 fi
+quiet_git clone https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_DIR"

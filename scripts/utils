@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_DIR="$HOME"/src/dotfiles
+DOTFILES_DIR="$HOME"/src/github.com/nodeselector/dotfiles
 SCRIPTS_DIR="$DOTFILES_DIR"/scripts
 UNAME=$(uname)
 
@@ -37,6 +37,7 @@ bootstrap() {
 }
 
 init_stow() {
+    touch ~/.zshrc.local
     stow --dir="$DOTFILES_DIR" --target="$HOME" zsh
     stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
     tmux start-server
