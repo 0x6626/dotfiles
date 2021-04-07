@@ -40,3 +40,9 @@ required = true
 
 [commit]
 template = ~/.gitmessage
+[github]
+	user = nodeselector
+[push]
+	default = simple
+[credential]
+	helper = osxkeychain
