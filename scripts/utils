@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_DIR="$HOME"/src/github.com/nodeselector/dotfiles
+DOTFILES_DIR="$HOME"/.dotfiles
 SCRIPTS_DIR="$DOTFILES_DIR"/scripts
 UNAME=$(uname)
 
