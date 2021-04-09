@@ -57,7 +57,15 @@ setup() {
         sudo chsh -s /bin/zsh "$USER"
     fi
     if [[ "$UNAME" == 'Darwin' ]]; then
+        ## Hammerspoon
+        rm -rf ~/.hammerspoon/Spoons/*
+        mkdir -p ~/.hammerspoon/Spoons
+        git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
+        stow --dir="$DOTFILES_DIR" --target="$HOME/.hammerspoon" hammerspoon
+
+        ## MacOS General Configuration
         "$DOTFILES_DIR/.macos"
+
     elif [[ "$UNAME" == 'Linux' ]]; then
         MACHINE_MODEL=$(sudo dmidecode | grep 'Version:' | sudo dmidecode | grep 'SKU Number' | head -1 | awk '{ print $4 }')
         if [[ "$MACHINE_MODEL" == 'P52s' ]]; then
