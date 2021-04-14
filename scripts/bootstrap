@@ -12,49 +12,10 @@ if [[ "$UNAME" == 'Darwin' ]]; then
 	brew bundle
 
 elif [[ "$UNAME" == 'Linux' ]]; then
-	DISTRO=$(lsb_release -d | awk '{ print $2 }')
-
-	if [[ "$DISTRO" == 'Ubuntu' ]]; then
-		sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-
-		# gh
-		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-		sudo apt-add-repository https://cli.github.com/packages
-
-		# code
-		wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
-		sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-		sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repUNAME/code stable main" > /etc/apt/sources.list.d/vscode.list'
-		rm packages.microsoft.gpg
-
-		# docker
-		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
-		# brave
-		curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-		echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
-		# kubectl
-		sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
-		curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-		echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-
-		# obsidian.md
-		wget https://github.com/obsidianmd/obsidian-releases/releases/download/v0.10.1/obsidian_0.10.1_amd64.snap
+	sudo apt-get -y install zsh whois sipcalc dnsutils stow
+	if [[ "$USER" == 'build' ]]; then
+		sudo chsh -s $(which zsh) build
 	fi
-	sudo apt update && sudo apt-get -y install git vim tmux stow zsh gh code qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst \
-		virt-manager vagrant vagrant-libvirt docker-ce docker-ce-cli containerd.io keepassxc brave-browser kubectl \
-		jq whois dnsutils sipcalc nmap virt-viewer remmina tcpdump
-
-	echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
-	sudo DEBIAN_FRONTEND=noninteractive apt-get -y install wireshark
-	sudo apt autoremove
-
-	sudo snap install microk8s --classic --channel=1.19
-	sudo snap install todoist
-	sudo snap install --dangerous obsidian_0.10.1_amd64.snap && rm obsidian_0.10.1_amd64.snap*
-
 fi
 
 # TPM
