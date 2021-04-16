@@ -16,3 +16,7 @@ EOF
 	xmodmap ~/.Xmodmap
 fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+export PATH="$GOBIN:$PATH"

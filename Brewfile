@@ -1,6 +1,7 @@
 brew "antigen"
 brew "azure-cli"
 brew "coreutils"
+brew "docker"
 brew "git-delta"
 brew "gh"
 brew "go"
