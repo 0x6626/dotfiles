@@ -1,9 +1,5 @@
 #!/bin/bash
 
-DOTFILES_DIR="$HOME"/src/github.com/nodeselector/dotfiles
-SCRIPTS_DIR="$DOTFILES_DIR"/scripts
-UNAME=$(uname)
-
 quiet_git() {
     stdout=$(mktemp)
     stderr=$(mktemp)
@@ -19,16 +15,16 @@ quiet_git() {
 
 reset() {
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" zsh
-    stow --delete --dir="$DOTFILES_DIR" --target="$HOME" vim
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" tmux
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" git
+    stow --delete --dir="$DOTFILES_DIR" --target="$HOME" hammerspoon
 }
 
 reload() {
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" zsh
-    stow --restow --dir="$DOTFILES_DIR" --target="$HOME" vim
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" tmux
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" git
+    stow --restow --dir="$DOTFILES_DIR" --target="$HOME" hammerspoon
 }
 
 bootstrap() {
@@ -42,9 +38,6 @@ init_stow() {
     stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
     tmux start-server
     tmux source ~/.tmux.conf
-
-    stow --dir="$DOTFILES_DIR" --target="$HOME" vim
-    vim +BundleInstall +qall
 
     stow --dir="$DOTFILES_DIR" --target="$HOME" git
 }
@@ -60,16 +53,6 @@ setup() {
         ## Hammerspoon
         rm -rf ~/.hammerspoon/Spoons/*
         mkdir -p ~/.hammerspoon/Spoons
-        git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
-        stow --dir="$DOTFILES_DIR" --target="$HOME/.hammerspoon" hammerspoon
-
-        ## MacOS General Configuration
-        "$DOTFILES_DIR/.macos"
-
-    elif [[ "$UNAME" == 'Linux' ]]; then
-        MACHINE_MODEL=$(sudo dmidecode | grep 'Version:' | sudo dmidecode | grep 'SKU Number' | head -1 | awk '{ print $4 }')
-        if [[ "$MACHINE_MODEL" == 'P52s' ]]; then
-            gsettings set org.gnome.desktop.peripherals.touchpad send-events disabled
-        fi
+        quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
     fi
 }
