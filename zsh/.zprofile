@@ -1,4 +1,7 @@
 eval "$(ssh-agent -s)"
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+export PATH="$GOBIN:$PATH"
 
 if [[ "$(uname)" == 'Linux' ]]; then
 	rm ~/.Xmodmap
