@@ -6,7 +6,6 @@ My [dotfiles](https://dotfiles.github.io/bootstrap/). Definitely stolen. Dubious
 
 [![https://xkcd.com/1319/](https://imgs.xkcd.com/comics/automation.png)](https://xkcd.com/1319/)
 
-
 ## Usage
 
 ### Install Script
