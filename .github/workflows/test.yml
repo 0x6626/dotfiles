@@ -1,0 +1,21 @@
+# Naive test of dotfiles. Success is a 0 return code. That's it.
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run setup script
+      run: ./setup.sh
+      # env:
+      #   - ${{ true }}

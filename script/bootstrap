@@ -1,0 +1,39 @@
+#!/bin/bash
+
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
+FZF_DIR="$HOME/.fzf"
+UNAME=$(uname)
+
+if [[ "$UNAME" == 'Darwin' ]]; then
+	if ! type -P brew >/dev/null; then
+		CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	fi
+	brew analytics off
+	brew bundle || true
+
+elif [[ "$UNAME" == 'Linux' ]]; then
+	DISTRO=$(lsb_release -d | awk '{ print $2 }')
+	if [[ "$DISTRO" == 'Ubuntu' ]] || [[ "$DISTRO" == 'Debian' ]] ; then
+		sudo apt-get update && sudo apt-get install -y stow tmux zsh
+	fi
+fi
+
+# TPM
+if [[ -d "$TPM_DIR" ]]; then
+	sudo rm -r "$TPM_DIR"
+fi
+
+quiet_git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# Vundle
+if [[ -d "$VUNDLE_DIR" ]]; then
+	sudo rm -r "$VUNDLE_DIR"
+fi
+quiet_git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_DIR"
+
+# fzf
+if [[ -d "$FZF_DIR" ]]; then
+	sudo rm -r "$FZF_DIR"
+fi
+quiet_git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
