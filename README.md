@@ -1,8 +1,11 @@
-# nodeselector's dotfiles
-
-![https://xkcd.com/1319/](https://imgs.xkcd.com/comics/automation.png)
+# Dotfiles
 
 [![Test](https://github.com/nodeselector/dotfiles/actions/workflows/test.yml/badge.svg)](https://github.com/nodeselector/dotfiles/actions/workflows/test.yml)
+
+My [dotfiles](https://dotfiles.github.io/bootstrap/). Definitely stolen. Dubiously curated.
+
+[![https://xkcd.com/1319/](https://imgs.xkcd.com/comics/automation.png)](https://xkcd.com/1319/)
+
 
 ## Usage
 
