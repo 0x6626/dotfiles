@@ -5,6 +5,9 @@ VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
 FZF_DIR="$HOME/.fzf"
 UNAME=$(uname)
 
+# shellcheck source=utils
+[ -f "$UTILS" ] && source "$UTILS"
+
 if [[ "$UNAME" == 'Darwin' ]]; then
 	if ! type -P brew >/dev/null; then
 		CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -14,7 +17,7 @@ if [[ "$UNAME" == 'Darwin' ]]; then
 
 elif [[ "$UNAME" == 'Linux' ]]; then
 	DISTRO=$(lsb_release -d | awk '{ print $2 }')
-	if [[ "$DISTRO" == 'Ubuntu' ]] || [[ "$DISTRO" == 'Debian' ]] ; then
+	if [[ "$DISTRO" == 'Ubuntu' ]] || [[ "$DISTRO" == 'Debian' ]]; then
 		sudo apt-get update && sudo apt-get install -y stow tmux zsh
 	fi
 fi
