@@ -52,7 +52,7 @@ setup() {
     if ! [ "$SHELL" == "/bin/zsh" ]; then
         if [ -n "$CODESPACE_NAME" ]; then
             sudo chsh -s /bin/zsh "codespace"
-        else
+        elif [ -n "$USER" ]; then
             sudo chsh -s /bin/zsh "$USER"
         fi
     fi
