@@ -4,6 +4,10 @@ TPM_DIR="$HOME/.tmux/plugins/tpm"
 VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
 FZF_DIR="$HOME/.fzf"
 UNAME=$(uname)
+UTILS="./utils"
+
+# shellcheck source=utils
+[ -f "$UTILS" ] && source "$UTILS"
 
 # shellcheck source=utils
 [ -f "$UTILS" ] && source "$UTILS"

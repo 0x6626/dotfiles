@@ -6,8 +6,9 @@ on_exit() {
 trap on_exit EXIT
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && cd .. && pwd)"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-export SCRIPT_DIR
+export DOTFILES_DIR
+
+export SCRIPT_DIR="$DOTFILES_DIR"/script
 export UTILS="$SCRIPT_DIR"/utils
 
 # shellcheck source=utils

@@ -4,6 +4,9 @@ export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 
+export CARGOPATH="~/.cargo/bin"
+export PATH="$CARGOPATH:$PATH"
+
 if [[ "$(uname)" == 'Linux' ]]; then
 
 	rm ~/.Xmodmap
