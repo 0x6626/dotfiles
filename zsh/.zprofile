@@ -3,6 +3,9 @@ eval "$(ssh-agent -s)"
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
+export LANGUAGE=(unset)
+export LC_ALL=(unset)
+export LANG="en_US.UTF-8"
 
 export CARGOPATH="~/.cargo/bin"
 export PATH="$CARGOPATH:$PATH"
