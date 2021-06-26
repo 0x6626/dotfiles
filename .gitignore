@@ -5,3 +5,4 @@ zsh/.zsh/aliases.local
 .gitmodules
 alfred/
 Brewfile.lock.json
+zsh/.zsh/*.env
