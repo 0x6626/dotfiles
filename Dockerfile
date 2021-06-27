@@ -1,4 +1,4 @@
-FROM --platform=arm64 ubuntu:18.04
+FROM ubuntu:18.04
 LABEL maintainer "nodeselector@protonmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
