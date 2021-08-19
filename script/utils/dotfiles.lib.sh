@@ -21,6 +21,7 @@ reset() {
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" git
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" hammerspoon
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" vim
+    stow --delete --dir="$DOTFILES_DIR" --target="$HOME" nvim
 }
 
 reload() {
@@ -29,6 +30,7 @@ reload() {
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" git
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" hammerspoon
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" vim
+    stow --restow --dir="$DOTFILES_DIR" --target="$HOME" nvim
 }
 
 bootstrap() {
@@ -44,6 +46,7 @@ init_stow() {
 
     stow --dir="$DOTFILES_DIR" --target="$HOME" git
     stow --dir="$DOTFILES_DIR" --target="$HOME" vim
+    stow --dir="$DOTFILES_DIR" --target="$HOME" nvim
 }
 
 setup() {

@@ -17,7 +17,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'wadackel/vim-dogrun'
-Plugin 'arcticicestudio/nord-vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'darfink/vim-plist'
 Plugin 'tarekbecker/vim-yaml-formatter'
@@ -28,6 +27,7 @@ Plugin 'Lenovsky/nuake'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'preservim/nerdcommenter'
 Plugin 'alfredodeza/pytest.vim'
+Plugin 'dracula/vim'
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -81,8 +81,7 @@ set hlsearch
 
 " 🎨 apperance
 set number
-"silent! colorscheme dogrun
-silent! colorscheme nord
+silent! colorscheme dracula
 set mouse=a
 
 " 🌲 nerdtree
