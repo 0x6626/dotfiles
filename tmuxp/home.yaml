@@ -1,0 +1,8 @@
+session_name: Home
+windows:
+  - window_name: dotfiles
+    layout: tiled
+    shell_command_before:
+      - cd ~/.dotfiles # run as a first command in all panes
+    panes:
+      - nvim

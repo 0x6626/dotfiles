@@ -1,0 +1,17 @@
+session_name: MacCloud Local
+windows:
+  - window_name: mc-deploy
+    start_directory: $MC_DEPLOY_PATH
+    shell_command_before: cd $MC_DEPLOY_PATH
+    panes:
+      - vim
+  - window_name: maccloud.configuration
+    start_directory: $MC_VMCONF_PATH
+    shell_command_before: cd $MC_VMCONF_PATH
+    panes:
+      - vim
+  - window_name: maccloud.vmcontroller
+    start_directory: $MC_VMCONT_PATH
+    shell_command_before: cd $MC_VMCONT_PATH
+    panes:
+      - vim
