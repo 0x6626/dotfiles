@@ -4,13 +4,13 @@ TPM_DIR="$HOME/.tmux/plugins/tpm"
 VUNDLE_DIR="$HOME/.vim/bundle/Vundle.vim"
 FZF_DIR="$HOME/.fzf"
 UNAME=$(uname)
-UTILS="./utils"
+DOTFILES_LIB="./utils/dotfiles.lib.sh"
 
 # shellcheck source=utils
-[ -f "$UTILS" ] && source "$UTILS"
+[ -f "$DOTFILES_LIB" ] && source "$DOTFILES_LIB"
 
 # shellcheck source=utils
-[ -f "$UTILS" ] && source "$UTILS"
+[ -f "$DOTFILES_LIB" ] && source "$DOTFILES_LIB"
 
 if [[ "$UNAME" == 'Darwin' ]]; then
 	if ! type -P brew >/dev/null; then

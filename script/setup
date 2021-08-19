@@ -1,1 +1,17 @@
 #!/bin/bash
+# this is used to setup codespace instances. much cloud. very ephemeral.
+set -e
+CALLED_DIR=$(pwd)
+trap 'cd $CALLED_DIR' EXIT
+
+# shellcheck source=./utils/dotfiles.lib.sh
+[ -f "$DOTFILES_LIB" ] && source "$DOTFILES_LIB"
+
+# if this is a codespace instance, we need to clean some stuff up first
+# because stow doesn't disown these well
+if [ -z ${CODESPACE_NAME+x} ]; then
+    rm -f ~/.zshrc
+    rm -f ~/.gitconfig
+fi
+
+setup

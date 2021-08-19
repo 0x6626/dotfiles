@@ -1,0 +1,24 @@
+session_name: GitHub Local
+windows:
+  - window_name: launch
+    start_directory: $GH_LAUNCH_PATH
+  - window_name: dotcom
+    layout: main-horizontal
+    start_directory: $GH_DOTCOM_PATH
+    shell_command_before: cd $GH_DOTCOM_PATH
+    panes:
+      - bin/console
+      - bin/dbconsole
+      - echo 👋
+  - window_name: azdevnext
+    start_directory: $GH_ADN_PATH
+    shell_command_before: cd $GH_ADN_PATH
+    panes:
+      - ./init.sh
+  - window_name: shell
+    shell_command_before: ssh github.shell
+  - window_name: monitoring
+    layout: main-horizontal
+    panes:
+      - cd $GH_MONITORING_PATH
+      - cd $GH_OPS_PATH

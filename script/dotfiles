@@ -9,10 +9,10 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && cd .. && pwd)
 export DOTFILES_DIR
 
 export SCRIPT_DIR="$DOTFILES_DIR"/script
-export UTILS="$SCRIPT_DIR"/utils
+export DOTFILES_LIB="$SCRIPT_DIR/utils/dotfiles.lib.sh"
 
 # shellcheck source=utils
-[ -f "$UTILS" ] && source "$UTILS"
+[ -f "$DOTFILES_LIB" ] && source "$DOTFILES_LIB"
 
 user_help() {
     echo "nodeselector's dotfiles"

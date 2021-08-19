@@ -9,8 +9,12 @@ done
 source $ZSH_ALIASES
 
 # 💻 start a tmux session for every vim instance
-if [[ -v VIMRUNTIME ]] && ! [[ -v TMUX ]]; then
-	tmux new
+if [ -n "$USE_VSCODE"  ]; then
+	export EDITOR="code-insiders --wait"
+elif ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+	export EDITOR="vim"
+else
+	export EDITOR="code-insiders --wait"
 fi
 
 # 💻 statusbar

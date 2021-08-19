@@ -19,7 +19,7 @@ pager = "delta --light"
 editor = "code --wait"
 [core]
 pager = delta
-autocrlf = input
+	autocrlf = input
 
 [interactive]
 diffFilter = delta --color-only

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+help() {
+	echo "Need to pass a profile name. Configured Profiles:";
+	echo "github-local-dev"
+}
+
+if [ -z "$1" ]; then
+	help
+	exit 1
+else
+	case $1 in
+		"github-local-dev" )
+			tmuxp load ghlocaldev
+			;;
+		*)
+			help
+			exit 1
+			;;
+	esac
+fi
