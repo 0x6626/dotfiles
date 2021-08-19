@@ -15,7 +15,10 @@ export UTILS="$SCRIPT_DIR"/utils
 # because stow doesn't disown these well
 if [ -z ${CODESPACE_NAME+x} ]; then
     rm -f ~/.zshrc
+    rm -rf ~/.zsh
     rm -f ~/.gitconfig
+    rm -f ~/.vimrc
+    rm -f ~/.tmux.conf
 fi
 
 setup

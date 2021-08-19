@@ -22,7 +22,8 @@ add Control = Control_L
 EOF
 	xmodmap ~/.Xmodmap
 elif [[ "$(uname)" == 'Darwin' ]]; then
-	eval "$(/usr/local/bin/brew shellenv)"
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 	export LDFLAGS="-L/usr/local/opt/luajit-openresty/lib"
 	export CPPFLAGS="-I/usr/local/opt/luajit-openresty/include"
 fi
+eval "$(/opt/homebrew/bin/brew shellenv)"

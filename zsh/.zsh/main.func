@@ -78,4 +78,7 @@ get_file_mode() {
 	fi
 }
 
-	
+flush_dns_cache() {
+	sudo dscacheutil -flushcache
+	sudo killall -HUP mDNSResponder
+}
