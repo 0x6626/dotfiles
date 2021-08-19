@@ -1,6 +1,5 @@
 #!/bin/bash
-
-source ../../zsh/.zsh/core.env
+source "$DOTFILES_DIR/zsh/.zsh/core.env"
 
 quiet_git() {
     stdout=$(mktemp)

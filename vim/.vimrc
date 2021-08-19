@@ -28,6 +28,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'preservim/nerdcommenter'
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'dracula/vim'
+Plugin 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plugin 'raghur/vim-ghost', {'do': ':GhostInstall'}
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -89,8 +91,8 @@ let NERDTreeShowHidden=1
 let NERDTreeChDirMode=2
 
 " 📝 nerdcommenter
-  let g:NERDSpaceDelims = 1
-  let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
 
 " 🚗 auto complete
 set completefunc=emoji#complete
@@ -99,6 +101,26 @@ set wildmenu
 " 💻 operating system integration
 set clipboard=unnamed
 
-" 🏁 startup commands
-autocmd vimenter * NERDTree
+function! s:IsFirenvimActive(event) abort
+  if !exists('*nvim_get_chan_info')
+    return 0
+  endif
+  let l:ui = nvim_get_chan_info(a:event.chan)
+  return has_key(l:ui, 'client') && has_key(l:ui.client, 'name') &&
+      \ l:ui.client.name =~? 'Firenvim'
+endfunction
 
+function! OnUIEnter(event) abort
+  if s:IsFirenvimActive(a:event)
+		set columns=200
+  endif
+endfunction
+
+
+" 🏁 startup commands
+if exists('g:started_by_firenvim')
+	autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
+else
+	execute "normal \<Plug>GhostStart"
+	autocmd vimenter * NERDTree
+endif
