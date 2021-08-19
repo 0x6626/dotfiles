@@ -28,7 +28,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
-if ! [[ -v VIMRUNTIME ]] && ! [[ "$TERM_PROGRAM" == "vscode" ]] && [[ "$(uname)" == 'Darwin' ]]; then # load if not in vim term
+if ! [[ -v VIMRUNTIME ]] && ! [[ "$TERM_PROGRAM" == "vscode" ]] && ! [[ -n "$TMUX" ]] && [[ "$(uname)" == 'Darwin' ]]; then # load if not in vim term
 	antigen bundle marzocchi/zsh-notify
 fi
 antigen theme romkatv/powerlevel10k
