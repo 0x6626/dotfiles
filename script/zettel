@@ -1,0 +1,12 @@
+#!/bin/bash
+
+BRAIN_PATH="$HOME/src/github.com/nodeselector/brain"
+
+fleeting() {
+	timestamp="$(date "+%Y%m%d%H%M")"
+	read -p "label this thought: " title
+	nvim "$BRAIN_PATH/fleeting/${timestamp}_${title}.md"
+}
+
+fleeting
+
