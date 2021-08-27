@@ -3,9 +3,33 @@
 BRAIN_PATH="$HOME/src/github.com/nodeselector/brain"
 timestamp="$(date "+%Y%m%d%H%M")"
 
+cd "$BRAIN_PATH"
+
 fleeting() {
 	read -p "label this thought: " title
-	nvim "$BRAIN_PATH/fleeting/${timestamp}_${title}.md"
+	if [[ -z "$title" ]]; then
+		exit 0
+	fi
+	nvim "+set laststatus=0" "$BRAIN_PATH/fleeting/${timestamp}_${title}.md"
+}
+
+literature() {
+	echo "New literature note"
+	timestamp="$(date "+%Y%m%d%H%M")"
+	read -p "title: " title
+	read -p "url: " url
+	export LITERATURE_TEMPLATE=$(cat <<EOF
+
+----
+[1]: $url
+
+EOF
+)
+	if [[ -z "$title" ]]; then
+		exit 0
+	fi
+
+	echo "$LITERATURE_TEMPLATE" | nvim "+set laststatus=0" "$BRAIN_PATH/literature/${timestamp}_${title}.md"
 }
 
 follow_up() {
@@ -42,7 +66,7 @@ follow_up() {
 
 picker() {
 	PS3='Please enter your choice: '
-	options=("Fleeting" "Follow up" "Quit")
+	options=("Fleeting" "Follow up" "Literature" "Quit")
 	select opt in "${options[@]}"
 	do
 			case $opt in
@@ -52,6 +76,10 @@ picker() {
 							;;
 					"Follow up")
 						follow_up
+						break
+							;;
+					"Literature")
+						literature
 						break
 							;;
 					"Quit")

@@ -12,27 +12,38 @@ set smartcase
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+
+" tmux
 Plugin 'christoomey/vim-tmux-navigator'
+
+" git
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" nerdtree
+Plugin 'preservim/nerdtree'
+Plugin 'preservim/nerdcommenter'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" search
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'wadackel/vim-dogrun'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'darfink/vim-plist'
-Plugin 'tarekbecker/vim-yaml-formatter'
-Plugin 'preservim/nerdtree'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'junegunn/vim-emoji'
-Plugin 'Lenovsky/nuake'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'preservim/nerdcommenter'
-Plugin 'alfredodeza/pytest.vim'
-Plugin 'dracula/vim'
-Plugin 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plugin 'raghur/vim-ghost', {'do': ':GhostInstall'}
-Plugin 'dpelle/vim-LanguageTool'
-Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plugin 'alok/notational-fzf-vim'
+
+
+# languages
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plugin 'alfredodeza/pytest.vim'
+Plugin 'vim-syntastic/syntastic'
+
+" pretty
+Plugin 'junegunn/vim-emoji'
+Plugin 'dracula/vim', { 'name': 'dracula' }
+
+" misc
+Plugin 'Lenovsky/nuake'
+Plugin 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -68,6 +79,7 @@ set pastetoggle=<Leader>p
 nnoremap <silent> <Leader>t :Nuake<CR>
 inoremap <silent> <Leader>t <C-\><C-n>:Nuake<CR>
 tnoremap <silent> <Leader>t <C-\><C-n>:Nuake<CR>
+nnoremap <silent> <Leader>f :NV<CR>
 
 " ✍ spell check
 syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
@@ -86,7 +98,7 @@ set hlsearch
 
 " 🎨 apperance
 set number
-silent! colorscheme dracula
+colorscheme dracula
 set mouse=a
 
 " 🌲 nerdtree
@@ -104,29 +116,5 @@ set wildmenu
 " 💻 operating system integration
 set clipboard=unnamed
 
-function! s:IsFirenvimActive(event) abort
-  if !exists('*nvim_get_chan_info')
-    return 0
-  endif
-  let l:ui = nvim_get_chan_info(a:event.chan)
-  return has_key(l:ui, 'client') && has_key(l:ui.client, 'name') &&
-      \ l:ui.client.name =~? 'Firenvim'
-endfunction
-
-function! OnUIEnter(event) abort
-  if s:IsFirenvimActive(a:event)
-		set columns=200
-  endif
-endfunction
-
-" brain stuff
+"
 let g:nv_search_paths = ['~/src/github.com/nodeselector/brain']
-
-
-" 🏁 startup commands
-if exists('g:started_by_firenvim')
-	autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
-	set columns=150
-	set lines=100
-	set guifont=Fira_Code:h18
-endif
