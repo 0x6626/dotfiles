@@ -667,6 +667,12 @@ defaults write com.apple.commerce AutoUpdate -bool true
 defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
 ###############################################################################
+# iTerm2                                                                      #
+###############################################################################
+
+defaults write ~/Applications/iTerm.app/Contents/Info LSUIElement true
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 

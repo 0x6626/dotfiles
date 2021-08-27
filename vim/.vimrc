@@ -30,6 +30,9 @@ Plugin 'alfredodeza/pytest.vim'
 Plugin 'dracula/vim'
 Plugin 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plugin 'raghur/vim-ghost', {'do': ':GhostInstall'}
+Plugin 'dpelle/vim-LanguageTool'
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plugin 'alok/notational-fzf-vim'
 call vundle#end()
 
 " 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
@@ -116,11 +119,14 @@ function! OnUIEnter(event) abort
   endif
 endfunction
 
+" brain stuff
+let g:nv_search_paths = ['~/src/github.com/nodeselector/brain']
+
 
 " 🏁 startup commands
 if exists('g:started_by_firenvim')
 	autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
-else
-	execute "normal \<Plug>GhostStart"
-	autocmd vimenter * NERDTree
+	set columns=150
+	set lines=100
+	set guifont=Fira_Code:h18
 endif

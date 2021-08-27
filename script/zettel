@@ -1,12 +1,65 @@
 #!/bin/bash
 
 BRAIN_PATH="$HOME/src/github.com/nodeselector/brain"
+timestamp="$(date "+%Y%m%d%H%M")"
 
 fleeting() {
-	timestamp="$(date "+%Y%m%d%H%M")"
 	read -p "label this thought: " title
 	nvim "$BRAIN_PATH/fleeting/${timestamp}_${title}.md"
 }
 
-fleeting
+follow_up() {
+	read -p "what: " what
+	PS3='when: '
+	options=("Today" "Tomorrow" "This Week" "Someday")
+	select opt in "${options[@]}"
+	do
+			case $opt in
+					"Today")
+						  when="today"
+							break
+							;;
+					"Tomorrow")
+						  when="tomorrow"
+							break
+							;;
+					"This Week")
+						  when="this_week"
+							break
+							;;
+					"Someday")
+						  when="someday"
+							break
+							;;
+					*) 
+							when="uncategorized"
+							break
+						  ;;
+			esac
+	done
+	nvim "$BRAIN_PATH/followup/${when}/${timestamp}_${what}.md"
+}
 
+picker() {
+	PS3='Please enter your choice: '
+	options=("Fleeting" "Follow up" "Quit")
+	select opt in "${options[@]}"
+	do
+			case $opt in
+					"Fleeting")
+						fleeting
+						break
+							;;
+					"Follow up")
+						follow_up
+						break
+							;;
+					"Quit")
+							break
+							;;
+					*) echo "K, bai";;
+			esac
+	done
+}
+
+picker

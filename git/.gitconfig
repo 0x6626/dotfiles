@@ -16,7 +16,7 @@ stash-f = !git checkout stash -- .
 
 [core]
 pager = "delta --light"
-editor = "code --wait"
+
 [core]
 pager = delta
 	autocrlf = input
