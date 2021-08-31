@@ -1,120 +1,188 @@
-"  ╻ ╻╻┏┳┓┏━┓┏━╸
-"  ┃┏┛┃┃┃┃┣┳┛┃  
-" ╹┗┛ ╹╹ ╹╹┗╸┗━╸
-" there are many like it, but this is mine
-
-" 🐜 behavior
-set nocompatible
-filetype off
-set smartcase
-
-" 🔌 plugins
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-
-" tmux
-Plugin 'christoomey/vim-tmux-navigator'
-
-" git
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-
-" nerdtree
-Plugin 'preservim/nerdtree'
-Plugin 'preservim/nerdcommenter'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-" search
-Plugin 'junegunn/fzf.vim'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'alok/notational-fzf-vim'
+"----------------,
+"  ╻ ╻╻┏┳┓┏━┓┏━╸ `
+"  ┃┏┛┃┃┃┃┣┳┛┃   `
+" ╹┗┛ ╹╹ ╹╹┗╸┗━╸ `
+"''''''''''''''''`
 
 
-# languages
-Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plugin 'alfredodeza/pytest.vim'
-Plugin 'vim-syntastic/syntastic'
-
-" pretty
-Plugin 'junegunn/vim-emoji'
-Plugin 'dracula/vim', { 'name': 'dracula' }
-
-" misc
-Plugin 'Lenovsky/nuake'
-Plugin 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-
-call vundle#end()
-
-" 🔴 don't open new buffers in unmodifiable buffers, quickfix, or nerdtree
-" 🔗 https://github.com/junegunn/fzf/issues/453#issuecomment-700943343
-function! FZFOpen(cmd)
-    if winnr('$') > 1 && (!&modifiable || &ft == 'nerdtree' || &ft == 'qf')
-        wincmd l
-        wincmd k
-    endif
-    exe a:cmd
-endfunction
-
-" ⌨ shortcuts
-nnoremap <Leader>yf :let @+=expand('%:p')<CR>
-map <silent> <leader>nh :nohls <CR>
-nnoremap <silent> <C-w> :bdel<CR>
-map <D-/> <Leader>c<Space>
-nmap <Leader>nr :NERDTreeFocus<cr>R<c-w><c-p>
-nnoremap <silent> <Leader>ve :call FZFOpen(":e $MYVIMRC")<CR>
-nnoremap <silent> <Leader>vr :source $MYVIMRC<CR><bar>:nohls<CR>
-nnoremap <silent> <Leader>vp :PluginInstall<CR>
-nnoremap <silent> <leader><leader> :call FZFOpen(":Buffers")<CR>
-nnoremap <silent> <leader>f :call FZFOpen(":Files")<CR>
-nnoremap <silent> <leader>ff :call FZFOpen(":Rg")<CR>
-nnoremap <silent> <leader>fh :call FZFOpen(":Files ~")<CR>
-nnoremap <silent> <leader>zh :call FZFOpen(":History")<CR>
-nnoremap <silent> <Leader>/ :BLines<CR>
-nnoremap <silent> <Leader>e :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR><bar>:nohls<CR>
-nnoremap <silent> <Leader>w :set list!<CR>
-map <silent> <leader>s :set spell!<CR>
-map <C-n> :NERDTreeToggle<CR>
-set pastetoggle=<Leader>p
-nnoremap <silent> <Leader>t :Nuake<CR>
-inoremap <silent> <Leader>t <C-\><C-n>:Nuake<CR>
-tnoremap <silent> <Leader>t <C-\><C-n>:Nuake<CR>
-nnoremap <silent> <Leader>f :NV<CR>
-
-" ✍ spell check
-syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
-syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
-
-" 🛰 spacing 
+"------------,
+" Pre-Plugin `
+"''''''''''''`
 filetype plugin indent on
+set nocompatible
+set smartcase
 set shiftwidth=2
 set tabstop=2
 set autoindent
 set smartindent
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-syntax on
 set cursorline
 set hlsearch
-
-" 🎨 apperance
 set number
-colorscheme dracula
 set mouse=a
+set clipboard=unnamed
 
-" 🌲 nerdtree
+
+"---------,
+" Plugins `
+"'''''''''`
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" ⭐⭐⭐⭐⭐ 
+Plugin 'VundleVim/Vundle.vim'
+
+"------
+" tmux.
+"******
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: <C-h,j,k,l>
+Plugin 'christoomey/vim-tmux-navigator'
+let g:tmux_navigator_disable_when_zoomed = 1
+
+"-----
+" git.
+"*****
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: :Git <literally whatever>
+" :Gdiffsplit
+" :Gllog, :Gclog
+" ... lots more 
+Plugin 'tpope/vim-fugitive'
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: git line status in gutter
+" - [ ] make shortcuts for hunk jumps
+Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_use_location_list=1
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: git line status in in file explorer
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
 let NERDTreeShowHidden=1
-let NERDTreeChDirMode=2
-
-" 📝 nerdcommenter
+let NERDTreeChDirMode=3
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 
-" 🚗 auto complete
-set completefunc=emoji#complete
-set wildmenu
+" experimental:
+Plugin 'pwntester/octo.nvim', {'load_extension': 'octo_commands'}
 
-" 💻 operating system integration
-set clipboard=unnamed
 
-"
-let g:nv_search_paths = ['~/src/github.com/nodeselector/brain']
+"---------------
+" file explorer.
+"***************
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: cute little file tree explorer
+Plugin 'preservim/nerdtree'
+map <C-n> :NERDTreeToggle<CR>
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: <Leader>c<Leader> comment/uncomment, just like in VSCode
+Plugin 'preservim/nerdcommenter'
+
+
+
+"------------------
+" Search and Select
+"******************
+
+" ⭐⭐⭐⭐⭐ 
+" tldr: :Telescope see everything
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'nvim-telescope/telescope.nvim'
+nnoremap <leader><leader> <cmd>Telescope<cr>
+nnoremap <leader>f <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>ff <cmd>Telescope live_grep<cr>
+
+" <telescope_extension>
+Plugin 'xiyaowong/telescope-octo-commands.nvim'
+Plugin 'xiyaowong/telescope-emoji.nvim'
+Plugin 'nvim-telescope/telescope-project.nvim'
+Plugin 'norcalli/nvim-terminal.lua' " needed for telescope tmux
+Plugin 'camgraff/telescope-tmux.nvim'
+" </telescope_extension>
+
+
+
+"------------------
+" Language Servers
+"******************
+" ⭐⭐⭐⭐⭐ 
+" tldr: code completion
+Plugin 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+
+" -----------------------------------------------------------+
+" :startmagic: to enable autcomplete on type, select on tab  |
+" -----------------------------------------------------------+
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
+
+	" Use <c-space> to trigger completion.
+	if has('nvim')
+		inoremap <silent><expr> <c-space> coc#refresh()
+	else
+		inoremap <silent><expr> <c-@> coc#refresh()
+	endif
+
+	" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+	" position. Coc only does snippet and additional edit on confirm.
+	" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+	if exists('*complete_info')
+		inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	else
+		inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	endif
+" ---------------------------------------------------------+
+" :endmagic: to enable autcomplete on type, select on tab  |
+" ---------------------------------------------------------+
+
+" <programming_languages>
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plugin 'alfredodeza/pytest.vim'
+Plugin 'vim-syntastic/syntastic'
+" </programming_languages>
+
+"----------
+" UI Tweaks
+"**********
+Plugin 'kyazdani42/nvim-web-devicons'
+
+"----------
+" Terminal 
+"**********
+" ⭐⭐⭐⭐⭐ 
+" tldr: like the integrated terminal in vscode
+Plugin 'Lenovsky/nuake'
+nnoremap <silent> <Leader>t :Nuake<CR>
+tnoremap <Esc> <C-\><C-n>
+
+"---------------------------
+" Embedded Neovim in Browser
+"***************************
+" ⭐⭐⭐⭐⭐ 
+" tldr: code completion
+Plugin 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+""NEW
+" WITCH_KEY
+Plugin 'folke/which-key.nvim'
+set timeoutlen=500
+" TODOIST
+Plugin 'romgrk/todoist.nvim', { 'do': ':TodoistInstall' }
+
+call vundle#end()
+
+nnoremap <silent> <Leader>vr :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:PluginUpdate<CR><bar>:quit<CR><bar>
+
