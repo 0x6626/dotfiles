@@ -94,9 +94,10 @@ Plugin 'preservim/nerdcommenter'
 " tldr: :Telescope see everything
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'nvim-telescope/telescope.nvim'
-nnoremap <leader><leader> <cmd>Telescope<cr>
+nnoremap <leader><leader> <cmd>Telescope buffers<cr>
 nnoremap <leader>f <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>ff <cmd>Telescope live_grep<cr>
+nnoremap <leader>te <cmd>Telescope emoji<cr>
 
 " <telescope_extension>
 Plugin 'xiyaowong/telescope-octo-commands.nvim'
@@ -184,5 +185,16 @@ Plugin 'romgrk/todoist.nvim', { 'do': ':TodoistInstall' }
 
 call vundle#end()
 
-nnoremap <silent> <Leader>vr :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:PluginUpdate<CR><bar>:quit<CR><bar>
+nnoremap <silent> <Leader>vrl :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:quit<CR><bar>
+nnoremap <silent> <Leader>vrh :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:PluginUpdate<CR><bar>:quit<CR><bar>
 
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
