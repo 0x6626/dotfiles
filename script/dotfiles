@@ -5,14 +5,12 @@ on_exit() {
 }
 trap on_exit EXIT
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && cd .. && pwd)"
-export DOTFILES_DIR
-
-export SCRIPT_DIR="$DOTFILES_DIR"/script
-export DOTFILES_LIB="$SCRIPT_DIR/utils/dotfiles.lib.sh"
+export DOTFILES_LIB="$DOTFILES_DIR/script/utils/dotfiles.lib.sh"
 
 # shellcheck source=utils
 [ -f "$DOTFILES_LIB" ] && source "$DOTFILES_LIB"
+
+debug
 
 user_help() {
     echo "nodeselector's dotfiles"

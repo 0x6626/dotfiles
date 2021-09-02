@@ -1,18 +1,7 @@
 alias k='kubectl'
-alias v='vagrant'
-alias pwsh="/usr/local/microsoft/powershell/7/pwsh"
+alias v="nvim"
+alias vim="nvim"
 alias td='tmux detach'
 alias ta='tmux attach'
-alias clean_teams='rm -rf ~/Library/ApplicationSupport/Microsoft/Teams'
-alias ap='ansible-playbook'
-alias ag='ansible-galaxy'
-alias av='ansible-vault'
-alias unetbootin='sudo /Applications/unetbootin.app/Contents/MacOS/unetbootin'
-alias g='gw'
-alias gw='g wip'
-alias ap='ansible-playbook'
-alias d='docker'
-alias dc='docker-compose'
-alias dotfiles='~/src/dotfiles/scripts/dotfiles'
-alias vim="nvim"
+alias dotfiles="$DOTFILES_DIR/script/dotfiles"
 

@@ -1,5 +1,19 @@
 #!/bin/bash
-source "$DOTFILES_DIR/zsh/.zsh/core.env"
+
+debug() {
+	RED='\033[0;31m'
+	NC='\033[0m'
+
+	failure() {
+		local lineno=$1
+		local msg=$2
+		echo -e "${RED}ERROR:${NC} $lineno: $msg"
+	}
+	trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
+}
+
+debug
+
 
 quiet_git() {
     stdout=$(mktemp)
@@ -37,36 +51,52 @@ bootstrap() {
     source "$DOTFILES_DIR/script/bootstrap"
 }
 
-init_stow() {
+setup() {
+    clean
     touch ~/.zshrc.local
+
     stow --dir="$DOTFILES_DIR" --target="$HOME" zsh
+		init_antigen
+		init_fzf
+
     stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
-    bash -c 'tmux start-server && tmux source ~/.tmux.conf' || true
+		init_tpm
 
     stow --dir="$DOTFILES_DIR" --target="$HOME" git
+
     stow --dir="$DOTFILES_DIR" --target="$HOME" vim
     stow --dir="$DOTFILES_DIR" --target="$HOME" nvim
+		init_vundle
 }
 
-setup() {
-    bootstrap
-    reset
-    init_stow
-    ~/.fzf/install --all
-    if ! [ "$SHELL" == "/bin/zsh" ]; then
-        if [ -n "$CODESPACE_NAME" ]; then
-            sudo chsh -s /bin/zsh "codespace"
-        elif [ -n "$USER" ]; then
-            sudo chsh -s /bin/zsh "$USER"
-        fi
-    fi
+clean() {
+		rm -f "$HOME/.zshrc"
+		rm -f "$HOME/.zshenv"
+		rm -rf "$HOME/.zsh"
+		rm -f "$HOME/.tmux.conf"
+		rm -rf "$HOME/.tmux"
+		rm -f "$HOME/.gitconfig"
+}
 
-    if [[ "$UNAME" == 'Darwin' ]]; then
-        ## Hammerspoon
-        rm -rf ~/.hammerspoon/Spoons/*
-        mkdir -p ~/.hammerspoon/Spoons
-        quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
-    fi
-    DOTFILE_ALIAS="alias dotfiles=${DOTFILES_DIR}/script/dotfiles"
-    grep -qF "${DOTFILE_ALIAS}" ~/.zshrc.local || echo "$DOTFILE_ALIAS" >>~/.zshrc.local
+init_tpm() {
+	sudo rm -rf "$TPM_DIR"
+	quiet_git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+}
+
+init_vundle() {
+	sudo rm -rf "$VUNDLE_DIR"
+	quiet_git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_DIR"
+	nvim +PluginInstall +qall
+	cd $HOME/.vim/bundle/coc.nvim && yarn install
+}
+
+init_fzf() {
+	sudo rm -rf "$FZF_DIR"
+	quiet_git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
+	~/.fzf/install --all
+}
+
+init_antigen() {
+	sudo rm -rf "$ZSH_ANTIGEN_DIR"
+	quiet_git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
 }

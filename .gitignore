@@ -1,5 +1,6 @@
 vim/.vim/bundle
 zsh/.zsh/dev.env
+zsh/.zsh/antigen/
 zsh/.zsh/aliases.local
 *.swp
 .gitmodules

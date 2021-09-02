@@ -2,10 +2,6 @@
 #  ┏━┛┗━┓┣━┫┣┳┛┃  
 # ╹┗━╸┗━┛╹ ╹╹┗╸┗━╸
 
-# 🌐 load envs
-for environment in ~/.zsh/*.env; do
-	source $environment || printf "Failed to source '$environment'\n"
-done
 source $ZSH_ALIASES
 
 # 💻 start a tmux session for every vim instance
@@ -23,7 +19,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # 🔌 plugins
-source $ZSH_ANTIGEN
+source $ZSH_ANTIGEN_DIR/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle command-not-found
