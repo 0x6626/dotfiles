@@ -39,7 +39,8 @@ elif [[ "$(uname)" == 'Linux' ]]; then
 	DISTRO=$(lsb_release -d | awk '{ print $2 }')
 	if [[ "$DISTRO" == 'Ubuntu' ]] || [[ "$DISTRO" == 'Debian' ]]; then
 		sudo apt-get update && sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl stow tmux zsh libevent-dev ncurses-dev build-essential bison dirmngr apt-transport-https lsb-release ca-certificates
-		curl -sL script/utils/node-install | bash
+		bash script/utils/node-install
+		npm install --global yarn
 	fi
 	if ! [ $( tmux -V | cut -d " " -f2 | cut -d "-" -f2 | cut -d '.' -f1) -ge 3 ]; then
 		install_tmux

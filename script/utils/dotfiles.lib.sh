@@ -97,6 +97,6 @@ init_fzf() {
 }
 
 init_antigen() {
-	sudo rm -rf "$ZSH_ANTIGEN"
+	sudo rm -rf "$ZSH_ANTIGEN_DIR"
 	quiet_git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
 }
