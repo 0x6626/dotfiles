@@ -48,5 +48,3 @@ template = ~/.gitmessage
 user = nodeselector
 [push]
 default = simple
-[credential]
-helper = osxkeychain
