@@ -2,7 +2,7 @@
 if [ "$CODESPACES" = true ]; then
 	export DOTFILES_DIR="/workspaces/.codespaces/.persistedshare/dotfiles"
 else
-	export DOTFILES_DIR="$HOME"
+	export DOTFILES_DIR="$HOME/.dotfiles"
 fi
 export DOTFILES_LIB=$DOTFILES_DIR/script/utils/dotfiles.lib.sh
 export TPM_DIR=$HOME/.tmux/plugins/tpm

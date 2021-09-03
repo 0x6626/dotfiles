@@ -76,6 +76,8 @@ clean() {
 		rm -f "$HOME/.tmux.conf"
 		rm -rf "$HOME/.tmux"
 		rm -f "$HOME/.gitconfig"
+		rm -rf "$HOME/.config/nvim"
+		rm -rf "$HOME/.config/gh"
 }
 
 init_tpm() {
