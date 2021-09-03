@@ -3,6 +3,7 @@
 # ╹┗━╸┗━┛╹ ╹╹┗╸┗━╸
 
 source $ZSH_ALIASES
+source $ZSH_FUNCTIONS
 
 # 💻 start a tmux session for every vim instance
 if [ -n "$USE_VSCODE"  ]; then
