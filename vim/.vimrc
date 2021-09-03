@@ -8,6 +8,7 @@
 "------------,
 " Pre-Plugin `
 "''''''''''''`
+syntax on
 filetype plugin indent on
 set nocompatible
 set smartcase
@@ -20,8 +21,27 @@ set cursorline
 set hlsearch
 set number
 set mouse=a
-set clipboard=unnamed
+set clipboard+=unnamedplus
+set showmatch
+set breakindent
 
+" maintain undo history between sessions
+set undofile
+set undodir=~/.vim/undo
+set noswapfile
+
+" case insensitive search
+set ignorecase
+set smartcase
+set infercase
+
+
+
+set fillchars=vert:▒
+
+hi SignColumn   ctermbg=234
+hi ActiveWindow ctermbg=0 | hi InactiveWindow ctermbg=234
+set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
 "---------,
 " Plugins `
@@ -182,11 +202,14 @@ Plugin 'folke/which-key.nvim'
 set timeoutlen=500
 " TODOIST
 Plugin 'romgrk/todoist.nvim', { 'do': ':TodoistInstall' }
+" COPY BETTER REMOTELY
+Plugin 'roxma/vim-tmux-clipboard'
 
 call vundle#end()
 
-nnoremap <silent> <Leader>vrl :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:quit<CR><bar>
-nnoremap <silent> <Leader>vrh :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:PluginUpdate<CR><bar>:quit<CR><bar>
+nnoremap <silent> <Leader>vrr :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:echo "█▓░ ~/.vimrc reloaded."<CR><bar>
+nnoremap <silent> <Leader>vri :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginInstall<CR><bar>:quit<CR><bar>:echo "█▓░ plugins installed"<CR><bar>
+nnoremap <silent> <Leader>vru :<C-u>call system('dotfiles reload')<CR><bar>:source ~/.vimrc<CR><bar>:PluginUpdate<CR><bar>:quit<CR><bar>:echo "█▓░ plugins updated"<CR><bar>
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
