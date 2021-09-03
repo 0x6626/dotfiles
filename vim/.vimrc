@@ -204,6 +204,8 @@ set timeoutlen=500
 Plugin 'romgrk/todoist.nvim', { 'do': ':TodoistInstall' }
 " COPY BETTER REMOTELY
 Plugin 'roxma/vim-tmux-clipboard'
+Plugin 'RyanMillerC/better-vim-tmux-resizer'
+
 
 call vundle#end()
 
