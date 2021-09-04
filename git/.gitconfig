@@ -13,13 +13,14 @@ push-f = git push --force-with-lease
 set-main = !"git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a"
 branch-file-diff = !"git diff --name-only $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
 stash-f = !git checkout stash -- .
+amend = !git commit --amend
 
 [core]
 pager = "delta --light"
 
 [core]
 pager = delta
-	autocrlf = input
+autocrlf = input
 
 [interactive]
 diffFilter = delta --color-only
@@ -44,7 +45,9 @@ required = true
 
 [commit]
 template = ~/.gitmessage
+
 [github]
 user = nodeselector
+
 [push]
 default = simple
