@@ -34,7 +34,7 @@ reset() {
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" git
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" hammerspoon
     stow --delete --dir="$DOTFILES_DIR" --target="$HOME" vim
-    stow --delete --dir="$DOTFILES_DIR" --target="$HOME" nvim
+    stow --delete --dir="$DOTFILES_DIR" --target="$HOME/.config" nvim
 }
 
 reload() {
@@ -43,7 +43,7 @@ reload() {
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" git
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" hammerspoon
     stow --restow --dir="$DOTFILES_DIR" --target="$HOME" vim
-    stow --restow --dir="$DOTFILES_DIR" --target="$HOME" nvim
+    stow --restow --dir="$DOTFILES_DIR" --target="$HOME/.config" nvim
 }
 
 bootstrap() {
@@ -54,6 +54,7 @@ bootstrap() {
 setup() {
     clean
     touch ~/.zshrc.local
+    mkdir ~/.config || true
 
     stow --dir="$DOTFILES_DIR" --target="$HOME" zsh
 		init_antigen
@@ -65,19 +66,19 @@ setup() {
     stow --dir="$DOTFILES_DIR" --target="$HOME" git
 
     stow --dir="$DOTFILES_DIR" --target="$HOME" vim
-    stow --dir="$DOTFILES_DIR" --target="$HOME" nvim
+    stow --dir="$DOTFILES_DIR" --target="$HOME/.config/" nvim
 		init_vundle
 }
 
 clean() {
+		rm -rf "$HOME/.zsh"
+		rm -rf "$HOME/.tmux"
 		rm -f "$HOME/.zshrc"
 		rm -f "$HOME/.zshenv"
-		rm -rf "$HOME/.zsh"
 		rm -f "$HOME/.tmux.conf"
-		rm -rf "$HOME/.tmux"
 		rm -f "$HOME/.gitconfig"
-		rm -rf "$HOME/.config/nvim"
-		rm -rf "$HOME/.config/gh"
+		rm -f "$HOME/.config/nvim/init.vim"
+		rm -f "$HOME/.config/nvim/coc-settings.json"
 }
 
 init_tpm() {
