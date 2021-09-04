@@ -25,6 +25,8 @@ set clipboard+=unnamedplus
 set showmatch
 set breakindent
 
+set tabstop=2 shiftwidth=2 expandtab
+
 " maintain undo history between sessions
 set undofile
 set undodir=~/.vim/undo
@@ -204,6 +206,7 @@ set timeoutlen=500
 Plugin 'romgrk/todoist.nvim', { 'do': ':TodoistInstall' }
 " COPY BETTER REMOTELY
 Plugin 'roxma/vim-tmux-clipboard'
+Plugin 'ruanyl/vim-gh-line'
 
 call vundle#end()
 
