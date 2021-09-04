@@ -1,6 +1,8 @@
 #!/bin/bash
 if [ "$CODESPACES" = true ]; then
 	export DOTFILES_DIR="/workspaces/.codespaces/.persistedshare/dotfiles"
+elif [ "$CI" = true]; then
+	export DOTFILES_DIR="$GITHUB_WORKSPACE"
 else
 	export DOTFILES_DIR="$HOME/.dotfiles"
 fi

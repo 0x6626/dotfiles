@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -qy azure-cli \
 COPY . /root/.dotfiles
 
 RUN locale-gen en_US.UTF-8
-RUN /root/.dotfiles/setup.sh
+RUN /root/.dotfiles/script/setup
 RUN zsh -c "source ~/.zshrc"
 
 CMD ["zsh"]

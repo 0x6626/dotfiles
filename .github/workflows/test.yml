@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run setup script
-      run: ./setup.sh
+      run: ./script/setup
   test_container:
     runs-on: ubuntu-latest
     steps:
