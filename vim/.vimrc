@@ -25,6 +25,8 @@ set clipboard+=unnamedplus
 set showmatch
 set breakindent
 
+set sessionoptions+=tabpages,globals
+
 set tabstop=2 shiftwidth=2 expandtab
 
 " maintain undo history between sessions
@@ -207,6 +209,9 @@ Plugin 'romgrk/todoist.nvim', { 'do': ':TodoistInstall' }
 " COPY BETTER REMOTELY
 Plugin 'roxma/vim-tmux-clipboard'
 Plugin 'ruanyl/vim-gh-line'
+Plugin 'gcmt/taboo.vim'
+Plugin 'dhruvasagar/vim-zoom'
+Plugin 'tpope/vim-rhubarb'
 
 call vundle#end()
 
