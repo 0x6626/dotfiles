@@ -32,6 +32,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'kyazdani42/nvim-web-devicons'
 Plugin 'mhinz/vim-startify'
+Plugin 'mfussenegger/nvim-dap'
 
 call vundle#end()
 
