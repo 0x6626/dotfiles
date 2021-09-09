@@ -31,6 +31,7 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'itchyny/lightline.vim'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'kyazdani42/nvim-web-devicons'
+Plugin 'mhinz/vim-startify'
 
 call vundle#end()
 
