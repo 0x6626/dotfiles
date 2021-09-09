@@ -7,7 +7,6 @@ zsh/.zsh/aliases.local
 alfred/
 Brewfile.lock.json
 zsh/.zsh/*.env
-nvim/.config/gh/hosts.yml
-nvim/.config/gh/state.yml
-nvim/.config/coc
-nvim/.conf
+nvim/.config/gh/
+vim/.vim/bundle
+vim/.vim/undo
