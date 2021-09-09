@@ -11,9 +11,10 @@ map <C-n> :NERDTreeToggle<CR>
 
 " telescope
 nnoremap <leader><leader> <cmd>Telescope buffers<cr>
-nnoremap <leader>f <cmd>Telescope find_files hidden=true<cr>
-nnoremap <leader>ff <cmd>Telescope live_grep<cr>
-nnoremap <leader>te <cmd>Telescope emoji<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep<cr>
+nnoremap <leader>fe <cmd>Telescope emoji<cr>
+nnoremap <leader>ft <cmd>Telescope<cr>
 
 " intuitive completion
 inoremap <silent><expr> <TAB>
