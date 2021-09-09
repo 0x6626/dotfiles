@@ -48,3 +48,5 @@ template = ~/.gitmessage
 user = nodeselector
 [push]
 default = simple
+[credential "https://github.com"]
+	helper = !gh auth git-credential
