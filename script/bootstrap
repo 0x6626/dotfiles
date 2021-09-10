@@ -1,48 +1,161 @@
 #!/bin/bash
+#  ____                    __            __
+# /\  _`\                 /\ \__        /\ \__
+# \ \ \L\ \    ___     ___\ \ ,_\   ____\ \ ,_\  _ __    __     _____
+#  \ \  _ <'  / __`\  / __`\ \ \/  /',__\\ \ \/ /\`'__\/'__`\  /\ '__`\
+#   \ \ \L\ \/\ \L\ \/\ \L\ \ \ \_/\__, `\\ \ \_\ \ \//\ \L\.\_\ \ \L\ \
+#    \ \____/\ \____/\ \____/\ \__\/\____/ \ \__\\ \_\\ \__/.\_\\ \ ,__/
+#     \/___/  \/___/  \/___/  \/__/\/___/   \/__/ \/_/ \/__/\/_/ \ \ \/
+#                                                                 \ \_\
+#                                                                  \/_/
+set -eE -o functrace
 
-source script/utils/dotfiles.lib.sh
-debug
+RED='\033[0;31m'
+NC='\033[0m'
+
+failure() {
+        local lineno=$1
+        local msg=$2
+        echo -e "${RED}ERROR:${NC} $lineno: $msg"
+}
+trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
+
+bootstrap_debian() {
+  sudo apt-get update
+  xargs sudo apt-get -y install < "$DOTFILES_DIR"/pkglist
+}
+
+bootstrap_docker() {
+  apt-get update
+  xargs apt-get -y install < "$DOTFILES_DIR"/pkglist
+  apt-get clean autoclean
+  apt-get autoremove --yes
+  rm -rf /var/lib/{apt,dpkg,cache,log}/
+  locale-gen en_US.UTF-8
+}
+
+bootstrap_macos() {
+  if ! type -P brew >/dev/null; then
+    CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
+  brew analytics off
+  brew bundle install
+}
+
+init_fish() {
+  rm -rf "$HOME/.config/fish"
+  mkdir -p "$HOME/.config/fish"
+  stow_configuration fish "$HOME/.config/fish"
+  fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
+  if [ "$(grep '/usr/local/bin/fish' /etc/shells)" -eq 0 ]; then
+    sudo echo '/usr/local/bin/fish' >> /etc/shells
+  fi
+  chsh -s /usr/local/bin/fish "$(whoami)"
+}
+
+init_hammerspoon() {
+  rm -rf ~/.hammerspoon/Spoons/*
+  mkdir -p ~/.hammerspoon/Spoons
+  quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
+}
+
+init_neovim() {
+  install_node
+  install_neovim
+  rm -rf ~/.config/nvim
+  git clone https://github.com/nodeselector/nvchad ~/.config/nvim
+  nvim +'hi NormalFloat guibg=#1e222a' +PackerSync +qall
+}
+
+init_tmux() {
+  install_tmux
+  stow_configuration tmux "$HOME"
+}
 
 install_neovim() {
-	sudo rm -rf /tmp/neovim
-	sudo rm -rf $(which neovim)
-	quiet_git clone https://github.com/neovim/neovim /tmp/neovim
-	cd /tmp/neovim
-	sudo make install
+  rm -rf /tmp/neovim
+  rm -rf $(which neovim)
+  quiet_git clone https://github.com/neovim/neovim /tmp/neovim
+  cd /tmp/neovim
+  sudo make install
+}
+
+install_node() {
+  curl -sfLS https://install-node.vercel.app | bash -s -- --yes
 }
 
 install_tmux() {
-	sudo rm -rf /tmp/tmux
-	sudo rm -rf $(which tmux)
-	quiet_git clone https://github.com/tmux/tmux.git /tmp/tmux
-	cd /tmp/tmux
-	sh autogen.sh
-	./configure
-	make && sudo make install
+  rm -rf /tmp/tmux
+  rm -rf $(which tmux)
+  quiet_git clone https://github.com/tmux/tmux.git /tmp/tmux
+  cd /tmp/tmux
+  sh autogen.sh
+  ./configure
+  make && sudo make install
 }
 
-if [[ "$(uname)" == 'Darwin' ]]; then
-	if ! type -P brew >/dev/null; then
-		CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-	fi
-	brew analytics off
-	brew bundle || true
+quiet_git() {
+    stdout=$(mktemp)
+    stderr=$(mktemp)
 
-	if [ command -v sw_vers >/dev/null 2>&1 ]; then
-			## Hammerspoon
-			rm -rf ~/.hammerspoon/Spoons/*
-			mkdir -p ~/.hammerspoon/Spoons
-			quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
-	fi
+    if ! git "$@" </dev/null >"$stdout" 2>"$stderr"; then
+        cat "$stderr" >&2
+        rm -f "$stdout" "$stderr"
+        exit 1
+    fi
 
-elif [[ "$(uname)" == 'Linux' ]]; then
-	DISTRO=$(lsb_release -d | awk '{ print $2 }')
-	if [[ "$DISTRO" == 'Ubuntu' ]] || [[ "$DISTRO" == 'Debian' ]]; then
-		sudo apt-get update && sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl stow tmux zsh libevent-dev ncurses-dev build-essential bison dirmngr apt-transport-https lsb-release ca-certificates
-		sudo bash script/utils/node-install
-		sudo npm install --global yarn
-    sudo chsh -s $(which zsh) $(whoami)
-	fi
-  install_tmux
-  install_neovim
-fi
+    rm -f "$stdout" "$stderr"
+}
+
+setup_macos() {
+  init_hammerspoon
+  "$DOTFILES_DIR"/.macos
+}
+
+stow_configuration() {
+  package="$1"
+  target="$2"
+  stow --dir="$DOTFILES_DIR" --target="$target" "$package"
+}
+
+main() {
+  export DOTFILES_DIR="$HOME/.dotfiles"
+
+  if [ "$(uname)" = "Darwin" ]; then
+
+    # escalate prividges if not in CI
+    if ! [ -z "${CI}" ]; then
+      sudo -v
+    fi
+
+    bootstrap_macos
+    setup_macos
+
+  elif [ -n "${CODESPACES+x}" ]; then
+
+    echo "codespaces runtime detected"
+    export DOTFILES_DIR="/workspaces/.codespaces/.persistedshare/dotfiles"
+    bootstrap_debian
+
+  elif [ -n "${BP_DEV+x}" ]; then
+
+    echo "bp-dev runtime detected"
+    bootstrap_debian
+
+  elif [[ ! $(cat /proc/1/sched | head -n 1 | grep init) ]]; then
+
+    echo "docker runtime detected"
+    bootstrap_docker
+
+  else
+    echo "Unknown runtime, send help."
+    exit 1
+  fi
+
+  init_fish
+  init_tmux
+  init_neovim
+
+}
+
+main
