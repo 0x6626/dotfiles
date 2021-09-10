@@ -47,10 +47,10 @@ init_fish() {
   mkdir -p "$HOME/.config/fish"
   stow_configuration fish "$HOME/.config/fish"
   fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
-  if [ "$(grep '/usr/local/bin/fish' /etc/shells)" -eq 0 ]; then
+  if [ "$(grep -c '/usr/local/bin/fish' /etc/shells)" -eq 0 ]; then
     sudo echo '/usr/local/bin/fish' >> /etc/shells
   fi
-  chsh -s /usr/local/bin/fish "$(whoami)"
+  sudo chsh -s /usr/local/bin/fish "$(whoami)"
 }
 
 init_hammerspoon() {
@@ -64,17 +64,19 @@ init_neovim() {
   install_neovim
   rm -rf ~/.config/nvim
   git clone https://github.com/nodeselector/nvchad ~/.config/nvim
-  nvim +'hi NormalFloat guibg=#1e222a' +PackerSync +qall
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 }
 
 init_tmux() {
   install_tmux
+  rm -f "$HOME"/.tmux.conf
+  rm -rf "$HOME"/.tmux
   stow_configuration tmux "$HOME"
 }
 
 install_neovim() {
-  rm -rf /tmp/neovim
-  rm -rf $(which neovim)
+  sudo rm -rf /tmp/neovim
+  sudo rm -rf $(which neovim)
   quiet_git clone https://github.com/neovim/neovim /tmp/neovim
   cd /tmp/neovim
   sudo make install
@@ -85,12 +87,12 @@ install_node() {
 }
 
 install_tmux() {
-  rm -rf /tmp/tmux
-  rm -rf $(which tmux)
+  sudo rm -rf /tmp/tmux
+  sudo rm -rf $(which tmux)
   quiet_git clone https://github.com/tmux/tmux.git /tmp/tmux
   cd /tmp/tmux
   sh autogen.sh
-  ./configure
+  ./configure --enable-utf8proc
   make && sudo make install
 }
 
@@ -107,11 +109,6 @@ quiet_git() {
     rm -f "$stdout" "$stderr"
 }
 
-setup_macos() {
-  init_hammerspoon
-  "$DOTFILES_DIR"/.macos
-}
-
 stow_configuration() {
   package="$1"
   target="$2"
@@ -122,14 +119,16 @@ main() {
   export DOTFILES_DIR="$HOME/.dotfiles"
 
   if [ "$(uname)" = "Darwin" ]; then
+    echo "macos runtime deteceted"
+    export DOTFILES_DIR="$HOME/ghq/github.com/nodeselector/dotfiles"
 
     # escalate prividges if not in CI
-    if ! [ -z "${CI}" ]; then
+    if ! [ -n "${CI+x}" ]; then
       sudo -v
     fi
 
     bootstrap_macos
-    setup_macos
+    init_hammerspoon
 
   elif [ -n "${CODESPACES+x}" ]; then
 

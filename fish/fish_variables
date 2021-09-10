@@ -20,12 +20,15 @@ SETUVAR _fisher_jethrokuan_2F_z_files:/Users/jeffreymartin/\x2econfig/fish/funct
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/Users/jeffreymartin/\x2econfig/fish/functions/fisher\x2efish\x1e/Users/jeffreymartin/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_jorgebucaran_2F_gitio_2E_fish_files:/Users/jeffreymartin/\x2econfig/fish/functions/gitio\x2efish\x1e/Users/jeffreymartin/\x2econfig/fish/completions/gitio\x2efish
 SETUVAR _fisher_jorgebucaran_2F_hydro_files:/Users/jeffreymartin/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e/Users/jeffreymartin/\x2econfig/fish/functions/fish_prompt\x2efish\x1e/Users/jeffreymartin/\x2econfig/fish/functions/fish_title\x2efish\x1e/Users/jeffreymartin/\x2econfig/fish/conf\x2ed/hydro\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z\x1egazorby/fish\x2dabbreviation\x2dtips\x1ejorgebucaran/gitio\x2efish\x1efranciscolourenco/done\x1ejorgebucaran/hydro\x1edracula/fish\x1edecors/fish\x2dghq
+SETUVAR _fisher_plugins:jethrokuan/z\x1egazorby/fish\x2dabbreviation\x2dtips\x1ejorgebucaran/gitio\x2efish\x1efranciscolourenco/done\x1ejorgebucaran/hydro\x1edracula/fish\x1edecors/fish\x2dghq\x1ejorgebucaran/fisher
 SETUVAR _hydro_git_42916:\x1d
 SETUVAR _hydro_git_43933:\x40fb75744\u2022\x20
 SETUVAR _hydro_git_44717:\x40fb75744\u2022\x20
 SETUVAR _hydro_git_49283:\x40fb75744\u2022\x20
 SETUVAR _hydro_git_50555:\x40fb75744\u2022\x20
+SETUVAR _hydro_git_90774:master\u2022\x20
+SETUVAR _hydro_git_90837:master\x20
+SETUVAR _hydro_git_91140:simplify\u2022\x20
 SETUVAR fish_color_autosuggestion:BD93F9
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:F8F8F2
