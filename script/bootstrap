@@ -57,6 +57,7 @@ init_tmux() {
   rm -f "$HOME"/.tmux.conf
   rm -rf "$HOME"/.tmux
   stow_configuration tmux "$HOME"
+  quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 init_zsh() {
