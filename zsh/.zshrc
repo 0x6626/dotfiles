@@ -4,6 +4,7 @@
 
 source $ZSH_ALIASES
 source $ZSH_FUNCTIONS
+source $ZSH_LOCAL
 
 # 💻 start a tmux session for every vim instance
 if [ -n "$USE_VSCODE"  ]; then
@@ -47,5 +48,3 @@ fi
 # 💻 statusbar
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Local Config
-source ~/.zshrc.local

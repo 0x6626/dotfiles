@@ -24,4 +24,5 @@ pkg-config
 ripgrep
 stow
 sudo
+tmux
 unzip

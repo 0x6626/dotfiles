@@ -42,15 +42,9 @@ bootstrap_macos() {
   brew bundle install
 }
 
-init_fish() {
-  rm -rf "$HOME/.config/fish"
-  mkdir -p "$HOME/.config/fish"
-  stow_configuration fish "$HOME/.config/fish"
-  fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
-  if [ "$(grep -c '/usr/local/bin/fish' /etc/shells)" -eq 0 ]; then
-    echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
-  fi
-  sudo chsh -s /usr/local/bin/fish "$(whoami)"
+init_git() {
+  rm -f ~/.git*
+  stow_configuration git "$HOME"
 }
 
 init_hammerspoon() {
@@ -59,41 +53,24 @@ init_hammerspoon() {
   quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
 }
 
-init_neovim() {
-  install_node
-  install_neovim
-  rm -rf ~/.config/nvim
-  git clone https://github.com/nodeselector/nvchad ~/.config/nvim
-  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-}
-
 init_tmux() {
-  install_tmux
   rm -f "$HOME"/.tmux.conf
   rm -rf "$HOME"/.tmux
   stow_configuration tmux "$HOME"
 }
 
-install_neovim() {
-  sudo rm -rf /tmp/neovim
-  sudo rm -rf $(which neovim)
-  quiet_git clone https://github.com/neovim/neovim /tmp/neovim
-  cd /tmp/neovim
-  sudo make install
-}
-
-install_node() {
-  curl -sfLS https://install-node.vercel.app | bash -s -- --yes
-}
-
-install_tmux() {
-  sudo rm -rf /tmp/tmux
-  sudo rm -rf $(which tmux)
-  quiet_git clone https://github.com/tmux/tmux.git /tmp/tmux
-  cd /tmp/tmux
-  sh autogen.sh
-  ./configure --enable-utf8proc
-  make && sudo make install
+init_zsh() {
+  rm -f "$HOME/.zsh*"
+  rm -rf "$HOME/.zsh"
+  rm -rf "$ZSH_ANTIGEN_DIR"
+  stow_configuration zsh "$HOME"
+	quiet_git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
+  dotfiles_export="export DOTFILES_DIR=$DOTFILES_DIR"
+  if ! grep -q "$dotfiles_export" "$ZSH_LOCAL"; then
+    echo "$dotfiles_export" >> "$ZSH_LOCAL"
+  fi
+  zsh -c "source ~/.zshrc"
+  sudo chsh -s "$(which zsh)" "$(whoami)"
 }
 
 quiet_git() {
@@ -119,11 +96,11 @@ main() {
   export DOTFILES_DIR="$HOME/.dotfiles"
 
   if [ "$(uname)" = "Darwin" ]; then
-    echo "macos runtime deteceted"
+    echo "macos runtime detected"
     export DOTFILES_DIR="$HOME/ghq/github.com/nodeselector/dotfiles"
 
     # escalate prividges if not in CI
-    if ! [ -n "${CI+x}" ]; then
+    if [ -n "${CI+x}" ]; then
       sudo -v
     fi
 
@@ -151,9 +128,11 @@ main() {
     exit 1
   fi
 
-  init_fish
+  source "$DOTFILES_DIR/zsh/.zshenv"
+
+  init_zsh
+  init_git
   init_tmux
-  init_neovim
 
 }
 

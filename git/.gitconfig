@@ -49,4 +49,6 @@ user = nodeselector
 [push]
 default = simple
 [credential "https://github.com"]
-	helper = !gh auth git-credential
+helper = !gh auth git-credential
+[pull]
+	ff = only

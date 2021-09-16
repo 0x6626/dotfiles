@@ -1,7 +1,1 @@
 alias k='kubectl'
-alias v="nvim"
-alias vim="nvim"
-alias td='tmux detach'
-alias ta='tmux attach'
-alias dotfiles="$DOTFILES_DIR/script/dotfiles"
-
