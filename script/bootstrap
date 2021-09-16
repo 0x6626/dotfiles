@@ -20,6 +20,15 @@ failure() {
 }
 trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
 
+backup_dir() {
+  TARGET_DIR=$1
+  BACKUP_DIR=$2
+  if [[ -d "$TARGET_DIR" ]]; then
+    mkdir --parents "$BACKUP_DIR"
+    mv "$TARGET_DIR" "$BACKUP_DIR"
+  fi
+}
+
 bootstrap_debian() {
   sudo apt-get update
   xargs sudo apt-get -y install < "$DOTFILES_DIR"/pkglist
@@ -42,6 +51,14 @@ bootstrap_macos() {
   brew bundle install
 }
 
+bootstrap_regolith() {
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  sudo apt update
+  xargs sudo apt-get -y install < "$DOTFILES_DIR"/pkglist
+}
+
+
 init_git() {
   rm -f ~/.git*
   stow_configuration git "$HOME"
@@ -58,6 +75,19 @@ init_tmux() {
   rm -rf "$HOME"/.tmux
   stow_configuration tmux "$HOME"
   quiet_git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+}
+
+init_regolith() {
+    gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+    REGOLITH_CONFIG_DIR="$HOME/.config/regolith"
+    REGOLITH_CONFIG_DIR_BAK="$HOME/backup/$REGOLITH_CONFIG_DIR/$(date "+%s")"
+    backup_dir "$REGOLITH_CONFIG_DIR" "$REGOLITH_CONFIG_DIR_BAK"
+    mkdir --parents "$REGOLITH_CONFIG_DIR"
+    stow_configuration regolith "$REGOLITH_CONFIG_DIR"
+    rm -rf /tmp/FiraCode.zip
+    curl -L -o /tmp/FiraCode.zip "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip"
+    unzip /tmp/FiraCode.zip -d ~/.fonts
+    fc-cache -fvr
 }
 
 init_zsh() {
@@ -107,6 +137,12 @@ main() {
 
     bootstrap_macos
     init_hammerspoon
+
+  elif [[ -n "$DESKTOP_SESSION" ]] && [[ "$DESKTOP_SESSION" = "regolith" ]]; then
+
+    echo "regolith runtime detected"
+    bootstrap_regolith
+    init_regolith
 
   elif [ -n "${CODESPACES+x}" ]; then
 

@@ -8,9 +8,10 @@ ca-certificates
 cmake
 curl
 dirmngr
-fish
 g++
 gettext
+gh
+ghq
 git
 gnupg
 libevent-dev

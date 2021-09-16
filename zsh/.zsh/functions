@@ -82,3 +82,7 @@ flush_dns_cache() {
 	sudo dscacheutil -flushcache
 	sudo killall -HUP mDNSResponder
 }
+
+fuzzy_package_install() {
+	apt-cache search '' | sort | cut --delimiter ' ' --fields 1 | fzf --multi --cycle --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt install -y
+}
