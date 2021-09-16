@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+TRAPWINCH() {
+  zle && { zle reset-prompt; zle -R }
+}
+
 preview () {
   cupsfilter $1 | open -f -a Preview >/dev/null >&2
 }
@@ -86,3 +90,14 @@ flush_dns_cache() {
 fuzzy_package_install() {
 	apt-cache search '' | sort | cut --delimiter ' ' --fields 1 | fzf --multi --cycle --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt install -y
 }
+
+function ghq-code() {
+  local target_dir=$(ghq list -p | fzf --query="$LBUFFER")
+
+  if [ -n "$target_dir" ]; then
+    code ${target_dir}
+  fi
+}
+
+zle -N ghq-code
+bindkey "^g" ghq-code
