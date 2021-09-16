@@ -15,3 +15,4 @@ export ANTIGEN_DEBUG_LOG=~/.antigen_debug
 export TERM=xterm-256color
 export ANSIBLE_NOCOWS=1
 export TMUXP_CONFIGDIR=$HOME/.dotfiles/tmuxp:
+export EDITOR="code --wait"
