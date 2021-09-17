@@ -11,7 +11,6 @@ dirmngr
 g++
 gettext
 gh
-ghq
 git
 gnupg
 libevent-dev
