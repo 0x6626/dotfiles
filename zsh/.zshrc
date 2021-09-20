@@ -6,15 +6,6 @@ source $ZSH_ALIASES
 source $ZSH_FUNCTIONS
 source $ZSH_LOCAL
 
-# 💻 start a tmux session for every vim instance
-if [ -n "$USE_VSCODE"  ]; then
-	export EDITOR="code-insiders --wait"
-elif ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
-	export EDITOR="vim"
-else
-	export EDITOR="code-insiders --wait"
-fi
-
 # 💻 statusbar
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
