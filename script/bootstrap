@@ -48,7 +48,11 @@ bootstrap_macos() {
     CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
   brew analytics off
+  brew tap homebrew/cask-fonts
   brew bundle install
+  defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+  defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+  defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 }
 
 bootstrap_regolith() {
@@ -68,6 +72,7 @@ init_hammerspoon() {
   rm -rf ~/.hammerspoon/Spoons/*
   mkdir -p ~/.hammerspoon/Spoons
   quiet_git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
+  stow_configuration hammerspoon "$HOME/.hammerspoon"
 }
 
 init_tmux() {
@@ -131,7 +136,7 @@ main() {
     export DOTFILES_DIR="$HOME/ghq/github.com/nodeselector/dotfiles"
 
     # escalate prividges if not in CI
-    if [ -n "${CI+x}" ]; then
+    if [ -z "${CI+x}" ]; then
       sudo -v
     fi
 
@@ -165,13 +170,11 @@ main() {
     exit 1
   fi
 
-  source "$DOTFILES_DIR/zsh/.zshenv"
+  source "$DOTFILES_DIR/zsh/.zprofile"
 
   init_zsh
   init_git
   init_tmux
-  go get github.com/x-motemen/ghq
-
 }
 
 main
