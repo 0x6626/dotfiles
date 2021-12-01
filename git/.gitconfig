@@ -7,7 +7,7 @@ upstream-push = !git push -u origin $(git branch --show-current)
 push-u = upstream-push
 
 [core]
-autocrlf = input
+	autocrlf = input
 excludesfile = ~/.gitignore
 editor = code --wait
 
