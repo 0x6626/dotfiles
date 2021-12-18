@@ -33,3 +33,9 @@ validate_target_configuration() {
   [[ -n $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory not found for $target, exiting" && exit 1)
   [[ -d $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory ($DOTFILES_DIR) not found $target, exiting" && exit 1)
 }
+
+export DOTFILES_SETUP_SUCCESS_MARKER_PATH=/etc/dotfiles-setup-success
+
+mark_setup_successful() {
+  echo "successful setup completed on $(date)" | sudo tee -a "$DOTFILES_SETUP_SUCCESS_MARKER_PATH"
+}

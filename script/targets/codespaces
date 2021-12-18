@@ -41,4 +41,5 @@ function setup() {
   setup_git
   setup_zsh
   setup_tmux
+  mark_setup_successful
 }
