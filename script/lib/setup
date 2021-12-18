@@ -14,7 +14,7 @@ setup_zsh() {
   if ! grep -q "$dotfiles_export" "$ZSH_LOCAL"; then
     echo "$dotfiles_export" >>"$ZSH_LOCAL"
   fi
-  zsh -c "source $HOME/.zshrc"
+  zsh -c "source $HOME/.zshrc" || true
   sudo chsh -s "$(which zsh)" "$(whoami)" >/dev/null
 }
 
