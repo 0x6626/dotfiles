@@ -1,5 +1,6 @@
 #!/bin/bash
-source ./script/utils
+# shellcheck source=./lib
+source ./script/targets/lib
 
 if [ "$CODESPACES_VSCODE_FOLDER" = "/workspaces/dotfiles" ]; then
   DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
@@ -18,15 +19,17 @@ export PKGLIST
 
 function bootstrap() {
   sudo apt-get update
-  xargs sudo apt-get install -y <<<$PKGLIST
+  xargs sudo apt-get install -y <<<"$PKGLIST"
+  pip install --user tmuxp
 }
 
 function is_bootstrapped() {
+  # shellcheck disable=SC2162 # TODO figure if needed
   while read pkg; do
-    if ! dpkg -l $pkg &>/dev/null; then
+    if ! dpkg -l "$pkg" &>/dev/null; then
       return 1
     fi
-  done <<<$PKGLIST
+  done <<<"$PKGLIST"
   return 0
 }
 

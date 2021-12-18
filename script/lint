@@ -1,0 +1,11 @@
+#!/bin/bash
+
+(
+  cd script &&
+    shellcheck -x setup
+)
+
+(
+  cd script/targets &&
+    shellcheck -x ./*
+)

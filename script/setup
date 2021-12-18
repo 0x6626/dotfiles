@@ -3,33 +3,38 @@
 # bootstrapped: return true if bootstrapped, false otherwise
 # bootstrap: install dependencies needed in target
 # setup: take care of any other setup
-# 
+#
 # it must also export a DOTFILES_DIR
-# 
+#
 # optionally, any exported variable beginning in DOTFILES_
 # will be added to zshrc.local
-set -e
 
-GITHUB_USER="${GITHUB_USER:=nodeselector}"
+# shellcheck source=./targets/lib
+source ./script/targets/lib
+set -eE -o functrace
+
+TMP_ERRS=$(mktemp)
+trap 'failure $TMP_ERRS' ERR
 
 main() {
-  echo "👋 hi there, $GITHUB_USER"
+  echo "👋 hi there, ${GITHUB_USER:=nodeselector}"
   if [ "$(uname)" = "Darwin" ]; then
     echo "🍎 macos runtime detected"
-    exit 1
+
+    # shellcheck source=./targets/macos
+    source ./script/targets/macos
   elif [ -n "${CODESPACES+x}" ]; then
     echo "💻 codespaces runtime detected"
     export TARGET="Codespaces"
+
+    # shellcheck source=./targets/codespaces
     source ./script/targets/codespaces
-  elif [[ ! $(cat /proc/1/sched | head -n 1 | grep init) ]]; then
-    echo "🐳 docker runtime detected"
-    exit 1
   else
     echo "👽 unknown runtime, send help"
     exit 1
   fi
 
-  validate_target_configuration
+  validate_target_configuration "$DOTFILES_DIR" "$TARGET"
 
   if ! is_bootstrapped; then
     echo "🥾 bootstrapping necessary"

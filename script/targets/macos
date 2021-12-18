@@ -1,0 +1,34 @@
+#!/bin/bash
+# shellcheck source=./lib
+source ./script/targets/lib
+
+# escalate prividges if not in CI
+if [ -z "${CI+x}" ]; then
+  sudo -v
+fi
+
+DOTFILES_DIR=$HOME/ghq/github.com/nodeselector/dotfiles
+export DOTFILES_DIR
+
+function bootstrap() {
+  if ! type -P brew >/dev/null; then
+    CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
+  brew analytics off
+  brew tap homebrew/cask-fonts
+  brew bundle install
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+  defaults write NSGlobalDomain KeyRepeat -int 2
+  defaults write NSGlobalDomain InitialKeyRepeat -int 15
+}
+
+function is_bootstrapped() {
+  return 1
+}
+
+function setup() {
+  setup_git
+  setup_zsh "$DOTFILES_DIR"
+  setup_tmux
+  setup_hammerspoon
+}
