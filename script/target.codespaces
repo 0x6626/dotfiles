@@ -12,6 +12,7 @@ export DOTFILES_DIR
 define PKGLIST <<EOF
   stow
   zsh
+  tmux
 EOF
 export PKGLIST
 
