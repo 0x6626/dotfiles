@@ -5,37 +5,23 @@ email = nodeselector@github.com
 [alias]
 upstream-push = !git push -u origin $(git branch --show-current)
 push-u = upstream-push
-squash = !git reset $(git merge-base master $(git rev-parse --abbrev-ref HEAD))
-upstream-merge = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master && git push"
-merge-u = upstream-merge
-graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-push-f = git push --force-with-lease
-set-main = !"git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a"
-branch-file-diff = !"git diff --name-only $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
-stash-f = !git checkout stash -- .
-amend = !git commit --amend
 
 [core]
-pager = "delta --light"
-
-[core]
-pager = delta
 autocrlf = input
+excludesfile = ~/.gitignore
+editor = code --wait
 
-[interactive]
-diffFilter = delta --color-only
+[diff]
+tool = vscode
 
-[delta]
-features = side-by-side line-numbers decorations
-whitespace-error-style = 22 reverse
-side-by-side = true
-paging=always
-line-numbers = true
+[difftool "vscode"]
+cmd = code --wait --diff $LOCAL $REMOTE
 
-[delta "decorations"]
-commit-decoration-style = bold yellow box ul
-file-style = bold yellow ul
-file-decoration-style = none
+[merge]
+tool = vscode
+
+[mergetool "vscode"]
+cmd = code --wait $MERGED
 
 [filter "lfs"]
 clean = git-lfs clean -- %f
@@ -51,3 +37,12 @@ user = nodeselector
 
 [push]
 default = simple
+
+[credential "https://github.com"]
+helper = !gh auth git-credential
+
+[pull]
+ff = only
+
+[init]
+templateDir = ~/.git_template

@@ -1,8 +1,0 @@
-#!/bin/bash
-set -eE -o functrace
-
-source zsh/.zshenv && source script/utils/dotfiles.lib.sh
-debug
-bootstrap
-setup
-
