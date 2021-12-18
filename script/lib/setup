@@ -37,3 +37,9 @@ setup_hammerspoon() {
   git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
   stow_configuration hammerspoon "$HOME/.hammerspoon"
 }
+
+setup_fzf() {
+  if target_is_macos; then
+    "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-update-rc
+  fi
+}
