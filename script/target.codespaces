@@ -30,5 +30,7 @@ function is_bootstrapped() {
 }
 
 function setup() {
+  init_git
   init_zsh
+  init_tmux
 }

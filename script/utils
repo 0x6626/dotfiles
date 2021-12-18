@@ -33,3 +33,16 @@ init_zsh() {
   zsh -c "source $HOME/.zshrc"
   sudo chsh -s "$(which zsh)" "$(whoami)"
 }
+
+init_git() {
+  rm -rf ~/.git*
+  stow_configuration git "$HOME"
+}
+
+init_tmux() {
+  export TPM_DIR=$HOME/.tpm
+  stow_configuration tmux "$HOME"
+  if ! [[ -d "$TPM_DIR" ]]; then
+    git clone https://github.com/tmux-plugins/tpm $TPM_DIR
+  fi
+}
