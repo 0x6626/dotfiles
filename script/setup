@@ -1,0 +1,52 @@
+#!/bin/bash
+# target files must declare these functions:
+# bootstrapped: return true if bootstrapped, false otherwise
+# bootstrap: install dependencies needed in target
+# setup: take care of any other setup
+# 
+# it must also export a DOTFILES_DIR
+# 
+# optionally, any exported variable beginning in DOTFILES_
+# will be added to zshrc.local
+set -e
+
+define(){ IFS='\n' read -r -d '' ${1} || true; }
+GITHUB_USER="${GITHUB_USER:=nodeselector}"
+
+main() {
+  echo "👋 hi there, $GITHUB_USER"
+  if [ "$(uname)" = "Darwin" ]; then
+    echo "🍎 macos runtime detected"
+    exit 1
+  elif [ -n "${CODESPACES+x}" ]; then
+    echo "💻 codespaces runtime detected"
+    export TARGET="Codespaces"
+    source ./script/target.codespaces
+  elif [[ ! $(cat /proc/1/sched | head -n 1 | grep init) ]]; then
+    echo "🐳 docker runtime detected"
+    exit 1
+  else
+    echo "👽 unknown runtime, send help"
+    exit 1
+  fi
+
+
+  [[ $(type -t is_bootstrapped) == function ]] || (echo "🛑 is_bootstrapped function not found for $TARGET, exiting" && exit 1)
+  [[ $(type -t bootstrap) == function ]] || (echo "🛑 bootstrap function not found for $TARGET, exiting" && exit 1)
+  [[ $(type -t setup) == function ]] || (echo "🛑 setup function not found for $TARGET, exiting" && exit 1)
+  ! [[ -z $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory not found for $TARGET, exiting" && exit 1)
+  [[ -d $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory ($DOTFILES_DIR) not found $TARGET, exiting" && exit 1) 
+
+  if ! is_bootstrapped; then
+    echo "🥾 bootstrapping necessary"
+    bootstrap
+  else
+    echo "🥾 bootstrapping uneccessary"
+  fi
+
+  echo "🏎️  starting setup" # fast emojis make computers run faster
+  setup
+  echo "🏁 finished setup"
+}
+
+main

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+define(){ IFS='\n' read -r -d '' ${1} || true; }
+
+stow_configuration() {
+  package="$1"
+  target="$2"
+  stow --dir="$DOTFILES_DIR" --target="$target" "$package"
+}
+
+init_zsh() {
+  export ZSH_ANTIGEN_DIR=~/.antigen
+  rm -rf "$HOME/.zsh*" && rm -rf "$ZSH_ANTIGEN_DIR"
+  stow_configuration zsh "$HOME"
+	git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
+  if ! grep -q "$dotfiles_export" "$ZSH_LOCAL"; then
+    echo "$dotfiles_export" >> "$ZSH_LOCAL"
+  fi
+  zsh -c "source ~/.zshrc"
+  sudo chsh -s "$(which zsh)" "$(whoami)"
+}

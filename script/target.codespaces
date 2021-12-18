@@ -1,0 +1,29 @@
+#!/bin/bash
+source ./script/utils
+
+DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
+export DOTFILES_DIR
+
+define PKGLIST <<EOF
+  stow
+  zsh
+EOF
+export PKGLIST
+
+function bootstrap() {
+sudo apt-get update
+xargs sudo apt-get install -y <<<$PKGLIST
+}
+
+function is_bootstrapped() {
+  while read pkg; do
+    if ! dpkg -l $pkg &>/dev/null ; then
+      return 1
+    fi
+  done <<<$PKGLIST
+  return 0
+}
+
+function setup() {
+  init_zsh
+}
