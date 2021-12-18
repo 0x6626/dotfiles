@@ -1,6 +1,7 @@
 brew "bitwarden-cli"
 brew "coreutils"
 brew "figlet"
+brew "fzf"
 brew "gh"
 brew "ghq"
 brew "git-lfs"
