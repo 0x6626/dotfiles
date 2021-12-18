@@ -40,4 +40,9 @@ function target_is_macos() {
 
 function target_is_codespaces() {
   [ -n "${CODESPACES+x}" ] || return 1
+export DOTFILES_SETUP_SUCCESS_MARKER_PATH=/etc/dotfiles-setup-success
+}
+
+mark_setup_successful() {
+  echo "successful setup completed on $(date)" | sudo tee -a "$DOTFILES_SETUP_SUCCESS_MARKER_PATH"
 }
