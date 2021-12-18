@@ -23,10 +23,3 @@ cs_actions_dev() {
     gh cs ssh -c $name -- "cd /workspaces/github && script/setup-codespaces-actions"
     gh cs code -c $name
 }
-
-cs_delete_all() {
-    codespaces=$(gh cs list --json name)
-    for cs in $(echo "${codespaces}" | jq -r '.[].name'); do
-        gh cs delete -c $cs
-    done
-}
