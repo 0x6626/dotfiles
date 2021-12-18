@@ -2,9 +2,10 @@
 #  ┏━┛┗━┓┣━┫┣┳┛┃  
 # ╹┗━╸┗━┛╹ ╹╹┗╸┗━╸
 
-source $ZSH_ALIASES
-source $ZSH_FUNCTIONS
-source $ZSH_LOCAL
+source $HOME/.zsh/aliases
+source $HOME/.zsh/functions
+source $HOME/.zshrc.local
+source $HOME/.antigen/antigen.zsh
 
 # 💻 statusbar
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -12,7 +13,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # 🔌 plugins
-source $ZSH_ANTIGEN_DIR/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle command-not-found
