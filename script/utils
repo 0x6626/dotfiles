@@ -1,21 +1,35 @@
 #!/bin/bash
 
-define(){ IFS='\n' read -r -d '' ${1} || true; }
+define() { IFS='\n' read -r -d '' ${1} || true; }
 
 stow_configuration() {
   package="$1"
   target="$2"
+
+  shopt -u dotglob
+  for entry in "$DOTFILES_DIR/$package/".*; do
+    entry=$target/$(basename "$entry")
+    if [[ -e "$entry" ]] && ! [[ -d "$entry" ]] && ! [[ -L "$entry" ]]; then
+      echo "❗ $entry exists and is not a symlink, removing"
+      rm -rf $entry
+    fi
+  done
+
   stow --dir="$DOTFILES_DIR" --target="$target" "$package"
 }
 
 init_zsh() {
-  export ZSH_ANTIGEN_DIR=~/.antigen
-  rm -rf "$HOME/.zsh*" && rm -rf "$ZSH_ANTIGEN_DIR"
+  export ZSH_ANTIGEN_DIR=$HOME/.antigen
+  export ZSH_LOCAL=$HOME/.zshrc.local
   stow_configuration zsh "$HOME"
-	git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
-  if ! grep -q "$dotfiles_export" "$ZSH_LOCAL"; then
-    echo "$dotfiles_export" >> "$ZSH_LOCAL"
+  if ! [[ -d "$ZSH_ANTIGEN_DIR" ]]; then
+    rm -rf $ZSH_ANTIGEN_DIR
+    git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
   fi
-  zsh -c "source ~/.zshrc"
+  dotfiles_export="export DOTFILES_DIR=$DOTFILES_DIR"
+  if ! grep -q "$dotfiles_export" "$ZSH_LOCAL"; then
+    echo "$dotfiles_export" >>"$ZSH_LOCAL"
+  fi
+  zsh -c "source $HOME/.zshrc"
   sudo chsh -s "$(which zsh)" "$(whoami)"
 }

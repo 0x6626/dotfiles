@@ -5,7 +5,7 @@
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions
 source $HOME/.zshrc.local
-source $HOME/.zsh/antigen.zsh
+source $HOME/.antigen/antigen.zsh
 
 # 💻 statusbar
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then

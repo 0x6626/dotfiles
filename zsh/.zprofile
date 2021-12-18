@@ -2,14 +2,14 @@ eval "$(ssh-agent -s)"
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-export CARGOPATH="~/.cargo/bin"
+export CARGOPATH="$HOME/.cargo/bin"
 export PATH="$GOBIN:$CARGOPATH:$PATH"
 export TPM_DIR=$HOME/.tmux/plugins/tpm
 export FZF_DIR="$HOME/.fzf"
 export PATH=$HOME/gopath/bin:/usr/local/bin:$HOME/.local/bin:/usr/local:$PATH
 export MANPATH="/usr/local/man:$MANPATH"
 export LANG=en_US.UTF-8
-export ANTIGEN_DEBUG_LOG=~/.antigen_debug
+export ANTIGEN_DEBUG_LOG="$HOME/.antigen_debug"
 export TERM=xterm-256color
 export EDITOR="code --wait"
 
