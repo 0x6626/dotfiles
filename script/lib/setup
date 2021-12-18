@@ -1,0 +1,39 @@
+#!/bin/bash
+# shellcheck source=../lib/stow
+source ./script/lib/stow
+
+setup_zsh() {
+  local ZSH_ANTIGEN_DIR=$HOME/.antigen
+  local ZSH_LOCAL=$HOME/.zshrc.local
+  stow_configuration zsh "$HOME"
+  if ! [[ -d "$ZSH_ANTIGEN_DIR" ]]; then
+    rm -rf "$ZSH_ANTIGEN_DIR"
+    git clone https://github.com/zsh-users/antigen.git "$ZSH_ANTIGEN_DIR"
+  fi
+  dotfiles_export="export DOTFILES_DIR=$DOTFILES_DIR"
+  if ! grep -q "$dotfiles_export" "$ZSH_LOCAL"; then
+    echo "$dotfiles_export" >>"$ZSH_LOCAL"
+  fi
+  zsh -c "source $HOME/.zshrc"
+  sudo chsh -s "$(which zsh)" "$(whoami)" >/dev/null
+}
+
+setup_git() {
+  rm -rf ~/.git*
+  stow_configuration git "$HOME"
+}
+
+setup_tmux() {
+  local TPM_DIR=$HOME/.tpm
+  stow_configuration tmux "$HOME"
+  if ! [[ -d "$TPM_DIR" ]]; then
+    git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
+  fi
+}
+
+setup_hammerspoon() {
+  rm -rf ~/.hammerspoon/Spoons/*
+  mkdir -p ~/.hammerspoon/Spoons
+  git clone https://github.com/jasonrudolph/ControlEscape.spoon.git ~/.hammerspoon/Spoons/ControlEscape.spoon
+  stow_configuration hammerspoon "$HOME/.hammerspoon"
+}

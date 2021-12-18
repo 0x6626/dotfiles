@@ -1,6 +1,9 @@
 #!/bin/bash
-# shellcheck source=./lib
-source ./script/targets/lib
+# shellcheck source=../lib/utils
+source ./script/lib/utils
+
+# shellcheck source=../lib/setup
+source ./script/lib/setup
 
 # escalate prividges if not in CI
 if [ -z "${CI+x}" ]; then

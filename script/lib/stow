@@ -1,0 +1,17 @@
+#!/bin/bash
+
+stow_configuration() {
+  local package=$1
+  local target=$2
+
+  shopt -u dotglob
+  for entry in "$DOTFILES_DIR/$package/".*; do
+    entry=$target/$(basename "$entry")
+    if [[ -e "$entry" ]] && ! [[ -d "$entry" ]] && ! [[ -L "$entry" ]]; then
+      echo "❗ $entry exists and is not a symlink, removing"
+      rm -rf "$entry"
+    fi
+  done
+
+  stow --dir="$DOTFILES_DIR" --target="$target" "$package"
+}

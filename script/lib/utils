@@ -1,0 +1,35 @@
+#!/bin/bash
+
+n=$'\n'
+RED='\033[0;31m'
+ORANGE='\033[0;33m'
+NC='\033[0m' # No Color
+
+failure() {
+  echo -e "${n}${n}😱 Oh dear, something broke!${NC}"
+  echo -e "${n}${RED}[ERROR]\t${NC}$(tail -n 1 <"$1")"
+  echo -e "${n}${ORANGE}[CALLSTACK]${n}"
+  local frame=0
+  while caller $frame >/dev/null; do
+    IFS=' ' read -r -a array <<<"$(caller $frame)"
+    echo -e "${ORANGE}[$frame] ${NC} ${array[1]} in ${array[2]}:${array[0]}"
+    ((frame++))
+  done
+
+  touch /tmp/dotfiles.errors.log
+  cat "$TMP_ERRS" >/tmp/dotfiles.errors.log
+  echo -e "${n}🗄️  more logs are in /tmp/dotfiles-errors.log"
+  exit 1
+}
+
+# shellcheck disable=SC2141 # TODO figure if needed
+define() { IFS='\n' read -r -d '' "${1}" || true; }
+
+validate_target_configuration() {
+  local target=$2
+  [[ $(type -t is_bootstrapped) == function ]] || (echo "🛑 is_bootstrapped function not found for $target, exiting" && exit 1)
+  [[ $(type -t bootstrap) == function ]] || (echo "🛑 bootstrap function not found for $target, exiting" && exit 1)
+  [[ $(type -t setup) == function ]] || (echo "🛑 setup function not found for $target, exiting" && exit 1)
+  [[ -n $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory not found for $target, exiting" && exit 1)
+  [[ -d $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory ($DOTFILES_DIR) not found $target, exiting" && exit 1)
+}
