@@ -10,7 +10,6 @@
 # will be added to zshrc.local
 set -e
 
-define(){ IFS='\n' read -r -d '' ${1} || true; }
 GITHUB_USER="${GITHUB_USER:=nodeselector}"
 
 main() {
@@ -21,7 +20,7 @@ main() {
   elif [ -n "${CODESPACES+x}" ]; then
     echo "💻 codespaces runtime detected"
     export TARGET="Codespaces"
-    source ./script/target.codespaces
+    source ./script/targets/codespaces
   elif [[ ! $(cat /proc/1/sched | head -n 1 | grep init) ]]; then
     echo "🐳 docker runtime detected"
     exit 1
@@ -30,12 +29,7 @@ main() {
     exit 1
   fi
 
-
-  [[ $(type -t is_bootstrapped) == function ]] || (echo "🛑 is_bootstrapped function not found for $TARGET, exiting" && exit 1)
-  [[ $(type -t bootstrap) == function ]] || (echo "🛑 bootstrap function not found for $TARGET, exiting" && exit 1)
-  [[ $(type -t setup) == function ]] || (echo "🛑 setup function not found for $TARGET, exiting" && exit 1)
-  ! [[ -z $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory not found for $TARGET, exiting" && exit 1)
-  [[ -d $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory ($DOTFILES_DIR) not found $TARGET, exiting" && exit 1) 
+  validate_target_configuration
 
   if ! is_bootstrapped; then
     echo "🥾 bootstrapping necessary"

@@ -45,4 +45,13 @@ init_tmux() {
   if ! [[ -d "$TPM_DIR" ]]; then
     git clone https://github.com/tmux-plugins/tpm $TPM_DIR
   fi
+  pip install --user tmuxp
+}
+
+validate_target_configuration() {
+  [[ $(type -t is_bootstrapped) == function ]] || (echo "🛑 is_bootstrapped function not found for $TARGET, exiting" && exit 1)
+  [[ $(type -t bootstrap) == function ]] || (echo "🛑 bootstrap function not found for $TARGET, exiting" && exit 1)
+  [[ $(type -t setup) == function ]] || (echo "🛑 setup function not found for $TARGET, exiting" && exit 1)
+  ! [[ -z $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory not found for $TARGET, exiting" && exit 1)
+  [[ -d $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory ($DOTFILES_DIR) not found $TARGET, exiting" && exit 1) 
 }
