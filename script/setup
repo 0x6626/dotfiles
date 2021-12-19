@@ -9,8 +9,8 @@
 # optionally, any exported variable beginning in DOTFILES_
 # will be added to zshrc.local
 
-# shellcheck source=./targets/lib
-source ./script/targets/lib
+# shellcheck source=./lib/utils
+source ./script/lib/utils
 set -eE -o functrace
 
 TMP_ERRS=$(mktemp)
@@ -18,12 +18,12 @@ trap 'failure $TMP_ERRS' ERR
 
 main() {
   echo "👋 hi there, ${GITHUB_USER:=nodeselector}"
-  if [ "$(uname)" = "Darwin" ]; then
+  if target_is_macos; then
     echo "🍎 macos runtime detected"
 
     # shellcheck source=./targets/macos
     source ./script/targets/macos
-  elif [ -n "${CODESPACES+x}" ]; then
+  elif target_is_codespaces; then
     echo "💻 codespaces runtime detected"
     export TARGET="Codespaces"
 

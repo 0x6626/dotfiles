@@ -31,7 +31,9 @@ function is_bootstrapped() {
 
 function setup() {
   setup_git
-  setup_zsh "$DOTFILES_DIR"
+  setup_fzf
+  setup_zsh
+  zsh_first_time_setup
   setup_tmux
   setup_hammerspoon
 }

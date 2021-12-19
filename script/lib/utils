@@ -22,8 +22,7 @@ failure() {
   exit 1
 }
 
-# shellcheck disable=SC2141 # TODO figure if needed
-define() { IFS='\n' read -r -d '' "${1}" || true; }
+define() { IFS=$'\n' read -r -d '' "${1}" || true; }
 
 validate_target_configuration() {
   local target=$2
@@ -32,4 +31,18 @@ validate_target_configuration() {
   [[ $(type -t setup) == function ]] || (echo "🛑 setup function not found for $target, exiting" && exit 1)
   [[ -n $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory not found for $target, exiting" && exit 1)
   [[ -d $DOTFILES_DIR ]] || (echo "🛑 dotfiles directory ($DOTFILES_DIR) not found $target, exiting" && exit 1)
+}
+
+function target_is_macos() {
+  [ "$(uname)" = "Darwin" ] || return 1
+}
+
+function target_is_codespaces() {
+  [ -n "${CODESPACES+x}" ] || return 1
+}
+
+export DOTFILES_SETUP_SUCCESS_MARKER_PATH=/etc/dotfiles-setup-success
+
+function mark_setup_successful() {
+  echo "successful setup completed on $(date)" | sudo tee -a "$DOTFILES_SETUP_SUCCESS_MARKER_PATH"
 }
