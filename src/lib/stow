@@ -10,22 +10,36 @@ stow_configuration() {
   local package=$1
   local target=$2
   if help_arg "$1"; then
-    echo "Usage: stow_configuration"
-    echo "destroys files that are not symbolic links or directories"
+    echo "Usage: stow_configuration <package> <target>"
+    echo "stows a package configuration file from PACKAGE_DIR to target directory"
     return
   fi
 
-
   stow_destroy_conflicts "$PACKAGE_DIR/$package" "$target"
   stow --dir="$PACKAGE_DIR" --target="$target" "$package"
+}
+
+restow_configuration() {
+  local package=$1
+  local target=$2
+  if help_arg "$1"; then
+    echo "Usage: restow_configuration <package> <target>"
+    echo "restows a package configuration file from PACKAGE_DIR to target directory"
+    return
+  fi
+
+  stow_destroy_conflicts "$PACKAGE_DIR/$package" "$target"
+  stow -R --dir="$PACKAGE_DIR" --target="$target" "$package"
 }
 
 stow_destroy_conflicts() {
   local package_dir=$1
   local target=$2
   if help_arg "$1"; then
-    echo "Usage: stow_destroy_conflicts"
-    echo "destroys files that are not symbolic links or directories"
+    echo "Usage: stow_destroy_conflicts <package_dir> <target>"
+    echo "destroys files in target dir that are not symbolic links or directories"
+    echo "this is a hacky way of dealing with an already existing file that avoid"
+    echo "having to keep track of all possible file that could conflict with a stow"
     return
   fi
   shopt -u dotglob
