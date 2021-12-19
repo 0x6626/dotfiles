@@ -1,9 +1,9 @@
 #!/bin/bash
 # shellcheck source=../lib/utils
-source ./script/lib/utils
+source ./src/lib/utils
 
 # shellcheck source=../lib/setup
-source ./script/lib/setup
+source ./src/lib/setup
 
 # escalate prividges if not in CI
 if [ -z "${CI+x}" ]; then
@@ -20,13 +20,15 @@ function bootstrap() {
   brew analytics off
   brew tap homebrew/cask-fonts
   brew bundle install
+  brew upgrade
   defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
   defaults write NSGlobalDomain KeyRepeat -int 2
   defaults write NSGlobalDomain InitialKeyRepeat -int 15
 }
 
 function is_bootstrapped() {
-  return 1
+  brew update
+  brew outdated >/dev/null
 }
 
 function setup() {

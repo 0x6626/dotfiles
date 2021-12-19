@@ -1,0 +1,10 @@
+#!/bin/bash --init-file
+
+# shellcheck source=../src/lib/utils
+source src/lib/utils
+
+# shellcheck source=../src/lib/stow
+source src/lib/stow
+
+# shellcheck source=../src/lib/setup
+source src/lib/setup

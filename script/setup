@@ -9,8 +9,8 @@
 # optionally, any exported variable beginning in DOTFILES_
 # will be added to zshrc.local
 
-# shellcheck source=./lib/utils
-source ./script/lib/utils
+# shellcheck source=../src/lib/utils
+source ./src/lib/utils
 set -eE -o functrace
 
 TMP_ERRS=$(mktemp)
@@ -21,14 +21,14 @@ main() {
   if target_is_macos; then
     echo "🍎 macos runtime detected"
 
-    # shellcheck source=./targets/macos
-    source ./script/targets/macos
+    # shellcheck source=../src/targets/macos
+    source ./src/targets/macos
   elif target_is_codespaces; then
     echo "💻 codespaces runtime detected"
     export TARGET="Codespaces"
 
-    # shellcheck source=./targets/codespaces
-    source ./script/targets/codespaces
+    # shellcheck source=../src/targets/codespaces
+    source ./src/targets/codespaces
   else
     echo "👽 unknown runtime, send help"
     exit 1
