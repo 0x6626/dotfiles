@@ -1,2 +1,4 @@
 alias k='kubectl'
 alias t='tmux'
+alias rel='dotfiles_reload'
+alias csgh='cs_create_and_open github/github master'
