@@ -5,11 +5,7 @@ source ./src/lib/utils
 # shellcheck source=../lib/setup
 source ./src/lib/setup
 
-if [ "$CODESPACES_VSCODE_FOLDER" = "/workspaces/dotfiles" ]; then
-  DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
-else
-  DOTFILES_DIR=/workspaces/dotfiles
-fi
+DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 
 export DOTFILES_DIR
 
