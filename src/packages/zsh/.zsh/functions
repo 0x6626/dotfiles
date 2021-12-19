@@ -20,6 +20,6 @@ set_github_token() {
 
 cs_actions_dev() {
     name=$(gh cs create -r github/github -b master)
-    gh cs ssh -c $name -- "cd /workspaces/github && script/setup-codespaces-actions"
-    gh cs code -c $name
+    gh cs ssh -c "$name" -- "cd /workspaces/github && script/setup-codespaces-actions"
+    gh cs code -c "$name"
 }

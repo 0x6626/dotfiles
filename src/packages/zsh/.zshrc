@@ -1,5 +1,6 @@
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions
+source $HOME/.zsh/functions.zsh
 source $HOME/.zshrc.local
 source $HOME/.antigen/antigen.zsh
 
