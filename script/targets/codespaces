@@ -18,6 +18,7 @@ define PKGLIST <<EOF
   zsh
   tmux
   python3-pip
+  fzf
 EOF
 export PKGLIST
 
@@ -28,9 +29,9 @@ function bootstrap() {
 }
 
 function is_bootstrapped() {
-  # shellcheck disable=SC2162 # TODO figure if needed
-  while read pkg; do
+  while read -r pkg; do
     if ! dpkg -l "$pkg" &>/dev/null; then
+      echo "$pkg is"
       return 1
     fi
   done <<<"$PKGLIST"
