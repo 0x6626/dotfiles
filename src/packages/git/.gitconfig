@@ -46,3 +46,4 @@ ff = only
 
 [init]
 templateDir = ~/.git_template
+	defaultBranch = main
