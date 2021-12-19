@@ -46,3 +46,7 @@ export DOTFILES_SETUP_SUCCESS_MARKER_PATH=/etc/dotfiles-setup-success
 function mark_setup_successful() {
   echo "successful setup completed on $(date)" | sudo tee -a "$DOTFILES_SETUP_SUCCESS_MARKER_PATH"
 }
+
+function help_arg() {
+  { [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; } || return 1
+}
