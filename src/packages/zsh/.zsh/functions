@@ -1,6 +1,6 @@
 #!/bin/bash
 
-terminal_colors() {
+util_terminal_colors() {
     for i in {0..255}; do
         printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
         if ((i == 15)) || ((i > 15)) && (((i - 15) % 6 == 0)); then
@@ -9,7 +9,7 @@ terminal_colors() {
     done
 }
 
-set_github_token() {
+gh_set_token() {
     unset GITHUB_TOKEN
     if ! gh auth status &>/dev/null; then
         gh auth login -h github.com
@@ -36,7 +36,7 @@ cs_create_and_open() {
     gh cs code -c "$codespace"
 }
 
-dotfiles_reload() {
+dot_reload() {
     # shellcheck disable=SC1090
     source ~/.zshrc
     # shellcheck source=../../../lib/utils
@@ -45,4 +45,12 @@ dotfiles_reload() {
     if target_is_macos; then
         hs -c "hs.reload()"
     fi
+}
+
+util_untar() {
+    tar -xvf "$1"
+}
+
+util_tar() {
+    tar -cvzf "$1".tar.gz "$1"
 }
