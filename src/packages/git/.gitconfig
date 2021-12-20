@@ -4,6 +4,8 @@ email = nodeselector@github.com
 
 [alias]
 upstream-push = !git push -u origin $(git branch --show-current)
+repo-root = git rev-parse --show-toplevel
+force-clean = !git reset --hard HEAD && !git clean -fdx
 push-u = upstream-push
 
 [core]
