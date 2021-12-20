@@ -12,7 +12,6 @@ unstage = !git reset
 [core]
 autocrlf = input
 excludesfile = ~/.gitignore
-editor = code --wait
 
 [diff]
 tool = vscode
