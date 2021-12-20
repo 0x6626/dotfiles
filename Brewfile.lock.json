@@ -1270,7 +1270,7 @@
         }
       },
       "firefox": {
-        "version": "95.0.1",
+        "version": "95.0.2",
         "options": {
           "full_name": "firefox"
         }
@@ -1286,6 +1286,12 @@
         "options": {
           "full_name": "iterm2"
         }
+      },
+      "insomnia": {
+        "version": "2021.7.2",
+        "options": {
+          "full_name": "insomnia"
+        }
       }
     }
   },
@@ -1300,9 +1306,9 @@
         "macOS": "10.15.7"
       },
       "big_sur": {
-        "HOMEBREW_VERSION": "3.3.8",
+        "HOMEBREW_VERSION": "3.3.9",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "1306561ffd2f43abc61e5bddad94639c204dc9d4",
+        "Homebrew/homebrew-core": "a5585de565e230b33ff5a70f291604ad3bbfd48e",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.1",
         "macOS": "11.6.1"
