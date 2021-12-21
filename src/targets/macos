@@ -10,8 +10,7 @@ if [ -z "${CI+x}" ]; then
   sudo -v
 fi
 
-DOTFILES_DIR=$HOME/ghq/github.com/nodeselector/dotfiles
-export DOTFILES_DIR
+export DOTFILES_DIR=$HOME/ghq/github.com/nodeselector/dotfiles
 
 function bootstrap() {
   if ! type -P brew >/dev/null; then

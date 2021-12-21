@@ -1,2 +1,0 @@
-#!/bin/bash
-export PACKAGE_DIR=$DOTFILES_DIR/src/packages

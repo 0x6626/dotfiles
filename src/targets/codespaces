@@ -5,9 +5,7 @@ source ./src/lib/utils
 # shellcheck source=../lib/setup
 source ./src/lib/setup
 
-DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
-
-export DOTFILES_DIR
+export DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 
 define PKGLIST <<EOF
   stow
