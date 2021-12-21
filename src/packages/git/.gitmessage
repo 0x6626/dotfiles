@@ -1,6 +1,4 @@
-# Subject Line:
 <type>: <subject line>
-# Body:
 # Co-authored-by name <user@users.noreply.github.com>
 
 #       _               _                                      _  __
@@ -21,49 +19,6 @@
 #  \ V  V /| | |  __/ (__|   <  | |_| | (_) | |_| | |  \__ \  __/ |  _|
 #   \_/\_/ |_|  \___|\___|_|\_\  \__, |\___/ \__,_|_|  |___/\___|_|_|
 #                                |___/
-## Checklist
-#
-# - [ ] Subject line
-#   - [ ] Imperative the imperative mood, like you're giving a command or instruction
-#   - [ ] Capitalize subject line
-#   - [ ] Limit to 50 characters
-#   - [ ] Fill in this sentence: If applied, this commit will _insert subject line here_
-#     - [ ] Does it make sense?
-# - [ ] Body
-#   - [ ] Explains what
-#   - [ ] Explains why
-#   - [ ] Does not explain how
-#     - [ ] If a how is needed, inline with the code or add to existing documentation
-# - [ ] Coauthors? Use the snipped to call them out. People who answered questions count as contributors
-#
-## Commit Types
-#
-# build: Changes that affect the build system or external dependencies
-# ci: Changes to our CI configuration files and scripts
-# docs: Documentation only changes
-# feat: A new feature
-# fix: A bug fix
-# perf: A code change that improves performance
-# refactor: A code change that neither fixes a bug nor adds a feature
-# test: Adding missing tests or correcting existing tests
-# chore: Regular code maintenance
-# style: Feature and updates related to styling
-# wip: Not intended to be pushed to be committed into mainline
-#
-## Good first subject line word
-#
-# - Add
-# - Create
-# - Refactor
-# - Fix
-# - Release
-# - Document
-# - Modify
-# - Update
-# - Remove
-# - Delete etc...
-#
-## Sources
 #
 # - https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733
 # - https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
