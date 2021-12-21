@@ -8,6 +8,7 @@ repo-root = !git rev-parse --show-toplevel
 force-clean = !git reset --hard HEAD && git clean -fd
 push-u = upstream-push
 unstage = !git reset
+commit-diff = !git cherry -v
 
 [core]
 autocrlf = input
