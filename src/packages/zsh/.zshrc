@@ -1,10 +1,10 @@
 
+source $HOME/.zshrc.local
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions
 source $HOME/.zsh/fzf
 source $HOME/.zsh/functions.zsh
 source $HOME/.antigen/antigen.zsh
-source $HOME/.zshrc.local
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
