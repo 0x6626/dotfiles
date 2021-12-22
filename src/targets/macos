@@ -38,4 +38,5 @@ function setup() {
   zsh_first_time_setup
   setup_tmux
   setup_hammerspoon
+  setup_pomo
 }

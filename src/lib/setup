@@ -2,6 +2,9 @@
 # shellcheck source=../lib/stow
 source ./src/lib/stow
 
+# shellcheck source=../lib/utils
+source ./src/lib/utils
+
 setup_zsh() {
   local ZSH_ANTIGEN_DIR=$HOME/.antigen
   local ZSH_LOCAL=$HOME/.zshrc.local
@@ -50,4 +53,8 @@ setup_fzf() {
   source /usr/share/doc/fzf/examples/key-bindings.zsh
 EOF
   fi
+}
+
+setup_pomo() {
+  "$DOTFILES_DIR"/src/packages/pomo/setup
 }
