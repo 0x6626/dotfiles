@@ -67,11 +67,6 @@ util_tar() {
 }
 
 install() {
-    cat <<EOF >demo.txt
-cd "$HOME"
-echo "$PWD" # echo the current path
-echo "this is plain text"
-EOF
     if target_is_macos; then
         cd "$DOTFILES_DIR" || fatal "couldn't cd to dotfiles dir, exiting"
         git stash -u
