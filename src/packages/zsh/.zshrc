@@ -1,4 +1,3 @@
-
 source $HOME/.zshrc.local
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions
