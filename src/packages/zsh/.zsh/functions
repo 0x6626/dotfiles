@@ -75,7 +75,7 @@ install() {
         brew bundle dump "$DOTFILES_DIR"/Brewfile
         brew update
         git add -A
-        git commit <<EOF
+        git commit -F- <<EOF
 dotbot: brew sync on $(fatal_portable_hostname)
 EOF
     else
