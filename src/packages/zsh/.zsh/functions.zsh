@@ -26,3 +26,52 @@ bindkey "^g^b" fshow
 
 zle -N dot_reload
 bindkey "^r^r" dot_reload
+
+function ghf_repo() {
+  ghf repo
+}
+
+zle -N ghf_repo
+bindkey "^g^r" ghf_repo
+
+function ghf_issue() {
+  ghf issue
+}
+
+zle -N ghf_issue
+bindkey "^g^i" ghf_issue
+
+function ghf_codespace() {
+  ghf codespace
+}
+
+zle -N ghf_codespace
+bindkey "^g^s" ghf_codespace
+
+function ghf_gist() {
+  ghf gist
+}
+
+zle -N ghf_gist
+bindkey "^g^g" ghf_gist
+
+function ghf_pr() {
+  ghf pr
+}
+
+zle -N ghf_pr
+bindkey "^g^p" ghf_pr
+
+function ghf_workflow() {
+  ghf workflow
+}
+
+zle -N ghf_workflow
+bindkey "^g^w" ghf_workflow
+
+function ghf_run() {
+  ghf run
+}
+
+zle -N ghf_run
+bindkey "^g^a" ghf_run

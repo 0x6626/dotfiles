@@ -16,6 +16,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle vi-mode
 antigen bundle command-not-found
+antigen bundle atusy/gh-fzf
 antigen theme romkatv/powerlevel10k
 antigen apply
 
