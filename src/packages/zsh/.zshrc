@@ -19,5 +19,10 @@ antigen bundle command-not-found
 antigen theme romkatv/powerlevel10k
 antigen apply
 
+if [[ -d /usr/local/share/zsh-syntax-highlighting/highlighters ]]; then
+  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 [ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
