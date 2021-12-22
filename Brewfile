@@ -11,6 +11,7 @@ brew "bitwarden-cli"
 brew "pkg-config"
 brew "chruby"
 brew "coreutils"
+brew "docker-compose", link: false
 brew "entr"
 brew "figlet"
 brew "fzf"
