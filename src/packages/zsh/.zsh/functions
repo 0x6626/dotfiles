@@ -71,7 +71,7 @@ install() {
         cd "$DOTFILES_DIR" || fatal "couldn't cd to dotfiles dir, exiting"
         git stash -u
         brew install "$@"
-        rm Brewfile Brewfile.lock.json
+        rm -f Brewfile Brewfile.lock.json
         brew bundle dump "$DOTFILES_DIR"/Brewfile
         brew update
         git add -A
