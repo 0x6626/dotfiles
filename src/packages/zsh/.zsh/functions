@@ -90,3 +90,13 @@ fatal_portable_hostname() {
         fatal "no portal hostname for this system, bailing"
     fi
 }
+
+function bw_set_session(){
+  BW_SESSION=$(bw unlock --raw "$1")
+  export BW_SESSION
+  echo "BW_SESSION=$BW_SESSION" >> ~/.zshrc.local
+}
+
+function nas_enter() {
+    sshpass -p "$(bw get password nas.dundercloud.io)" ssh nas
+}
