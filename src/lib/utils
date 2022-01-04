@@ -57,7 +57,7 @@ function target_is_codespaces() {
 export DOTFILES_SETUP_SUCCESS_MARKER_PATH=/etc/dotfiles-setup-success
 
 function mark_setup_successful() {
-  echo "successful setup completed on $(date)" | sudo tee -a "$DOTFILES_SETUP_SUCCESS_MARKER_PATH"
+  echo "🏁 successful setup completed on $(date)" | sudo tee -a "$DOTFILES_SETUP_SUCCESS_MARKER_PATH"
 }
 
 function help_arg() {

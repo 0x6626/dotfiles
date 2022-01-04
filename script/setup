@@ -45,7 +45,6 @@ main() {
 
   echo "🏎️  starting setup" # fast emojis make computers run faster
   setup
-  echo "🏁 finished setup"
 }
 
 main

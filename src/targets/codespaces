@@ -8,18 +8,19 @@ source ./src/lib/setup
 export DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 
 define PKGLIST <<EOF
-  stow
-  zsh
-  tmux
-  python3-pip
   fzf
+  python3-dev
+  python3-pip
+  python3-setuptools
+  stow
+  tmux
+  zsh
 EOF
 export PKGLIST
 
 function bootstrap() {
   sudo apt-get update
   xargs sudo apt-get install -y <<<"$PKGLIST"
-  pip install --user tmuxp
 }
 
 function is_bootstrapped() {
@@ -33,6 +34,8 @@ function is_bootstrapped() {
 }
 
 function setup() {
+  pip install thefuck --user > /dev/null
+  pip install --user tmuxp > /dev/null
   setup_git
   setup_fzf
   setup_zsh
