@@ -39,4 +39,5 @@ function setup() {
   setup_tmux
   setup_hammerspoon
   setup_pomo
+  setup_alfred
 }

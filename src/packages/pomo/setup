@@ -4,4 +4,3 @@ set -e
 cd "$(ghq list --full-path kevinschoon/pomo)" || ghq get kevinschoon/pomo
 make
 mv bin/pomo /usr/local/bin/
-pomo init

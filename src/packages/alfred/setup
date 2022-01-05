@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+ghq get alexherbo2/chronic
+dir=$(ghq list --full-path alexherbo2/chronic)
+(
+  echo "changing to $dir"
+  cd "$dir"
+  make install
+  sudo mv bin/chronic /usr/bin/chronic-time
+)
