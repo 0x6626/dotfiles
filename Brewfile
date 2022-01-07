@@ -15,6 +15,7 @@ brew "pkg-config"
 brew "chruby"
 brew "coreutils"
 brew "crystal"
+brew "dash"
 brew "docker-compose", link: false
 brew "entr"
 brew "exa"
