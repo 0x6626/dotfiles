@@ -11,11 +11,11 @@ fi
 
 bindkey -v
 
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle vi-mode
-antigen bundle command-not-found
-antigen bundle atusy/gh-fzf
+antigen use oh-my-zsh >/dev/null
+antigen bundle git >/dev/null
+antigen bundle vi-mode >/dev/null
+antigen bundle command-not-found >/dev/null
+antigen bundle atusy/gh-fzf >/dev/null
 antigen apply
 
 if [[ -d /usr/local/share/zsh-syntax-highlighting/highlighters ]]; then
