@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# shellcheck source=../../lib/utils
+source ./src/lib/utils
+
+# shellcheck source=../../lib/stow
+source ./src/lib/stow
+
+PACKAGE_NAME=xbar
+PACKAGE_TARGET_PATH="$HOME/Library/Application Support/xbar"
+
+stow_configuration "$PACKAGE_NAME" "$PACKAGE_TARGET_PATH"
+

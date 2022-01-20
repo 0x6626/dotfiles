@@ -11,7 +11,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export LANG=en_US.UTF-8
 export ANTIGEN_DEBUG_LOG="$HOME/.antigen_debug"
 export TERM=xterm-256color
-export EDITOR="vim"
+export EDITOR="code --wait"
 
 
 if [[ "$(uname)" == 'Darwin' ]]; then
