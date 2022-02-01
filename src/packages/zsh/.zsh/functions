@@ -118,5 +118,7 @@ creates a local and remote repository"
 
 
 function forego_actions() {
+    LAUNCH_DIR=/workspaces/actions/launch
+    "$LAUNCH_DIR/script/docker-compose" down
     forego start -f "$DOTFILES_DIR/src/packages/forego/actions.codespaces.server.Procfile"
 }
