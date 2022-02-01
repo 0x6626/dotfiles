@@ -115,3 +115,8 @@ creates a local and remote repository"
         gh repo create --private --source "$repo" "$name"
     )
 }
+
+
+function forego_actions() {
+    forego start -f "$DOTFILES_DIR/src/packages/forego/actions.codespaces.server.Procfile"
+}
