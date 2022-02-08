@@ -15,6 +15,7 @@ define PKGLIST <<EOF
   stow
   tmux
   zsh
+  lnav
 EOF
 export PKGLIST
 

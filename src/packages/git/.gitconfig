@@ -11,7 +11,7 @@ unstage = !git reset
 commit-diff = !git cherry -v
 
 [core]
-autocrlf = input
+	autocrlf = input
 excludesfile = ~/.gitignore
 
 [diff]
