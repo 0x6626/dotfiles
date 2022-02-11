@@ -126,3 +126,8 @@ function forego_actions() {
 function launch_worker_key_path() {
 code services/queueworker/worker.go pkg/processors/build/processor.go services/deploy/workflowinvoker/invoker.go services/deploy/workflowinvoker/workflowinvoker.go services/deploy/workflowinvoker/build_invoker.go
 }
+
+function vscode_open_nwo() {
+	code "$HOME/ghq/github.com/$1"
+}
+
