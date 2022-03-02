@@ -42,5 +42,6 @@ function setup() {
   setup_zsh
   zsh_first_time_setup
   setup_tmux
+  setup_htop
   mark_setup_successful
 }

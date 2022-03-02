@@ -5,6 +5,11 @@ source ./src/lib/stow
 # shellcheck source=../lib/utils
 source ./src/lib/utils
 
+setup_htop() {
+  rm -f ~/.config/htop/htoprc
+  stow_configuration htop "$HOME"
+}
+
 setup_zsh() {
   local ZSH_ANTIGEN_DIR=$HOME/.antigen
   local ZSH_LOCAL=$HOME/.zshrc.local
