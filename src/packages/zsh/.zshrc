@@ -26,3 +26,4 @@ fi
 eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval $(thefuck --alias)
+eval "$(leader init)"

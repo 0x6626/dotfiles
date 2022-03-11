@@ -1,0 +1,96 @@
+{
+  "keys": {
+    "m": {
+      "name": "actions-codespaces",
+      "keys": {
+        "r": {
+          "name": "restart",
+          "keys": {
+            "l": "cs_restart_launch",
+            "a": "cs_restart_actions",
+            "d": "cs_restart_dotcom"
+          }
+        }
+      }
+    },
+    "p": {
+      "name": "projects",
+      "keys": {
+        "g": {
+          "name": "ghq",
+          "keys": {
+            "o": "ghq_code"
+          }
+        }
+      }
+    },
+    "f": {
+      "name": "files",
+      "keys": {
+        "c": {
+          "name": "change",
+          "keys": {
+            "c": "cf",
+            "u": "fdr"
+          }
+        }
+      }
+    },
+    "g": {
+      "name": "git[hub]",
+      "keys": {
+        "l": {
+          "name": "log",
+          "keys": {
+            "l": "git log",
+            "s": "git log --stat",
+            "p": "git log -p"
+          }
+        },
+        "g": {
+          "name": "github",
+          "keys": {
+            "c": {
+              "name": "codespaces",
+              "keys": {
+                "l": "gh cs list",
+                "s": "gh cs ssh",
+                "c": "gh cs code"
+              }
+            },
+            "i": "ghf_issue",
+            "p": "ghf_pr",
+            "w": "ghf_workflow",
+            "f": "ghf_run",
+            "r": "ghf_repo",
+            "g": "ghf_gist"
+          }
+        },
+        "c": {
+          "name": "commit",
+          "keys": {
+            "s": "fshow",
+            "t": "fstash",
+            "a": "git commit --amend",
+            "n": "git commit --amend --no-edit",
+            "x": "git add -A && git commit --amend --no-edit"
+          }
+        },
+        "p": {
+          "name": "push",
+          "keys": {
+            "p": "git push",
+            "u": "git push-u",
+            "f": "git push -f"
+          }
+        }
+      }
+    },
+    "d": {
+      "name": "dotfiles",
+      "keys": {
+        "r": "dot_reload"
+      }
+    }
+  }
+}

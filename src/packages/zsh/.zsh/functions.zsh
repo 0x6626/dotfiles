@@ -1,7 +1,7 @@
 #!/bin/zsh
 source $HOME/.zsh/functions
 
-function open_repo_in_code() {
+function ghq_code() {
   IFS=$'\n' files=($(ghq list -p | fzf --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && code "${files[@]}"
 }
