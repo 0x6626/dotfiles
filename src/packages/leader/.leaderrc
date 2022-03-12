@@ -83,6 +83,12 @@
             "u": "git push-u",
             "f": "git push -f"
           }
+        },
+        "o": {
+          "name": "checkout",
+          "keys": {
+            "o": "fbr"
+          }
         }
       }
     },
