@@ -1,0 +1,47 @@
+#!/bin/bash
+# shellcheck source=../lib/utils
+source ./src/lib/utils
+
+# shellcheck source=../lib/setup
+source ./src/lib/setup
+
+export DOTFILES_DIR="$HOME"/ghq/github.com/nodeselector/dotfiles
+
+define PKGLIST <<EOF
+  fzf
+  python3-dev
+  python3-pip
+  python3-setuptools
+  stow
+  tmux
+  zsh
+  lnav
+EOF
+export PKGLIST
+
+function bootstrap() {
+  sudo apt-get update
+  xargs sudo apt-get install -y <<<"$PKGLIST"
+}
+
+function is_bootstrapped() {
+  while read -r pkg; do
+    if ! dpkg -l "$pkg" &>/dev/null; then
+      echo "$pkg is"
+      return 1
+    fi
+  done <<<"$PKGLIST"
+  return 0
+}
+
+function setup() {
+  pip install thefuck --user > /dev/null
+  pip install --user tmuxp > /dev/null
+  setup_git
+  setup_fzf
+  setup_zsh
+  zsh_first_time_setup
+  setup_tmux
+  setup_zsh_leader
+  mark_setup_successful
+}

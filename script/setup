@@ -29,6 +29,12 @@ main() {
 
     # shellcheck source=../src/targets/codespaces
     source ./src/targets/codespaces
+  elif target_is_qubes; then
+    echo "💻 qubes runtime detected"
+    export TARGET="Qubes"
+
+    # shellcheck source=../src/targets/qubes
+    source ./src/targets/qubes
   else
     echo "👽 unknown runtime, send help"
     exit 1
