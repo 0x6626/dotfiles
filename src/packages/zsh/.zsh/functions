@@ -35,6 +35,10 @@ cs_actions_dev() {
     gh cs code -c "$name"
 }
 
+cs_ghm_list() {
+  gh cs list --json repository,name | jq '.[] | select(.repository | contains("github/github")) | .name' | fzf | cut -f1 | xargs gh cs code --codespace "$@"
+}
+
 cs_create_and_open() {
     local nwo=$1
     local ref=$2

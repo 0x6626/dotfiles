@@ -3,12 +3,14 @@
     "m": {
       "name": "actions-codespaces",
       "keys": {
+        "n": "cs_ghm",
+        "l": "cs_ghm_list",
         "r": {
           "name": "restart",
           "keys": {
-            "l": "cs_restart_launch",
             "a": "cs_restart_actions",
-            "d": "cs_restart_dotcom"
+            "d": "cs_restart_dotcom",
+            "l": "cs_restart_launch"
           }
         }
       }
@@ -43,8 +45,8 @@
           "name": "log",
           "keys": {
             "l": "git log",
-            "s": "git log --stat",
-            "p": "git log -p"
+            "p": "git log -p",
+            "s": "git log --stat"
           }
         },
         "g": {
@@ -53,26 +55,27 @@
             "c": {
               "name": "codespaces",
               "keys": {
+                "c": "gh cs code",
                 "l": "gh cs list",
-                "s": "gh cs ssh",
-                "c": "gh cs code"
+                "s": "gh cs ssh"
               }
             },
+            "f": "ghf_run",
+            "g": "ghf_gist",
             "i": "ghf_issue",
             "p": "ghf_pr",
-            "w": "ghf_workflow",
-            "f": "ghf_run",
             "r": "ghf_repo",
-            "g": "ghf_gist"
+            "w": "ghf_workflow"
           }
         },
         "c": {
           "name": "commit",
           "keys": {
+            "a": "git commit --amend",
+            "m": "git commit",
+            "n": "git commit --amend --no-edit",
             "s": "fshow",
             "t": "fstash",
-            "a": "git commit --amend",
-            "n": "git commit --amend --no-edit",
             "x": "git add -A && git commit --amend --no-edit"
           }
         },
