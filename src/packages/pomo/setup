@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 cd "$(ghq list --full-path kevinschoon/pomo)" || ghq get kevinschoon/pomo

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # shellcheck source=../lib/utils
 source ./src/lib/utils
 
@@ -42,7 +42,7 @@ function setup() {
   setup_zsh
   zsh_first_time_setup
   setup_tmux
-  setup_htop
+  # setup_htop
   setup_zsh_leader
   mark_setup_successful
 }

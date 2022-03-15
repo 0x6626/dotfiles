@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # target files must declare these functions:
 # bootstrapped: return true if bootstrapped, false otherwise
 # bootstrap: install dependencies needed in target

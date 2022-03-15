@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias cs_dot='cs_create_and_open nodeselector/dotfiles main'
 alias cs_ghm='cs_create_and_open github/github master'
