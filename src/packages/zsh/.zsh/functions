@@ -112,7 +112,7 @@ creates a local and remote repository"
         echo "$help"
         return
     fi
-    export name="$1-$(date '+ %m-%d-%Y-%H-%M-%S')"
+    export name="$1-$(date '+%m-%d-%Y-%H-%M-%S')"
     (
         ghq create nodeselector/"$name"
         repo="$(ghq list --full-path nodeselector/"$name")"
