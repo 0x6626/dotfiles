@@ -21,7 +21,8 @@
         "g": {
           "name": "ghq",
           "keys": {
-            "o": "ghq_code"
+            "o": "ghq_code",
+            "c": "ghq_cd"
           }
         }
       }
@@ -98,7 +99,8 @@
     "d": {
       "name": "dotfiles",
       "keys": {
-        "r": "dot_reload"
+        "r": "dot_reload",
+        "e": "code $DOTFILES_DIR"
       }
     }
   }

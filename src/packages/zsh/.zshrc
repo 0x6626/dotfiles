@@ -1,13 +1,7 @@
 source $HOME/.zshrc.local
 source $HOME/.zsh/aliases
-source $HOME/.zsh/functions
-source $HOME/.zsh/fzf
-source $HOME/.zsh/functions.zsh
 source $HOME/.antigen/antigen.zsh
-
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+for f in ~/.zsh/**/*functions.zsh; do . $f; done
 
 bindkey -v
 
@@ -27,3 +21,4 @@ eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval $(thefuck --alias)
 eval "$(leader init)"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
