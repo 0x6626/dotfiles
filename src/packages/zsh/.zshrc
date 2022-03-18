@@ -1,7 +1,6 @@
 source $HOME/.zshrc.local
 source $HOME/.zsh/aliases
 source $HOME/.antigen/antigen.zsh
-for f in ~/.zsh/**/*functions.zsh; do . $f; done
 
 bindkey -v
 
@@ -18,7 +17,7 @@ if [[ -d /usr/local/share/zsh-syntax-highlighting/highlighters ]]; then
 fi
 
 eval "$(starship init zsh)"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval $(thefuck --alias)
 eval "$(leader init)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && for f in ~/.zsh/**/*functions.zsh; do . $f; done
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
