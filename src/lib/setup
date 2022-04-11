@@ -82,3 +82,8 @@ EOF
 setup_pomo() {
   "$DOTFILES_DIR"/src/packages/pomo/setup
 }
+
+setup_golang() {
+  go install -v golang.org/x/tools/cmd/godoc@latest
+  go install github.com/x-motemen/ghq@latest
+}
