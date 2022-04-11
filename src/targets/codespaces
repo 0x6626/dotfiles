@@ -35,14 +35,8 @@ function is_bootstrapped() {
 }
 
 function setup() {
+  setup_common
   pip install thefuck --user > /dev/null
   pip install --user tmuxp > /dev/null
-  setup_git
-  setup_fzf
-  setup_zsh
-  zsh_first_time_setup
-  setup_tmux
-  # setup_htop
-  setup_zsh_leader
   mark_setup_successful
 }

@@ -32,12 +32,6 @@ function is_bootstrapped() {
 }
 
 function setup() {
-  setup_git
-  setup_fzf
-  setup_zsh
-  zsh_first_time_setup
-  setup_tmux
-  # setup_htop
-  setup_zsh_leader
+  setup_common
   setup_hammerspoon
 }

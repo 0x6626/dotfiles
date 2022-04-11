@@ -87,3 +87,13 @@ setup_golang() {
   go install -v golang.org/x/tools/cmd/godoc@latest
   go install github.com/x-motemen/ghq@latest
 }
+
+common() {
+  setup_golang
+  setup_git
+  setup_fzf
+  setup_zsh
+  zsh_first_time_setup
+  setup_tmux
+  setup_zsh_leader
+}
