@@ -44,11 +44,7 @@ setup_zsh_leader() {
 
   curl -L $url --output leader
   chmod +x leader
-  local lbin="$HOME/.local/bin/"
-  if ! [[ -d "$lbin" ]]; then
-    mkdir -p "$lbin"
-  fi
-  mv leader "$HOME/.local/bin/"
+  sudo mv leader /usr/local/bin/leader
   stow_configuration leader "$HOME"
 }
 

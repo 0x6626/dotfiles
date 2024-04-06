@@ -29,6 +29,12 @@ main() {
 
     # shellcheck source=../src/targets/codespaces
     source ./src/targets/codespaces
+  elif target_is_ubuntu; then
+    echo "💻 ubuntu runtime detected"
+    export TARGET="Ubuntu"
+
+    # shellcheck source=../src/targets/ubuntu
+    source ./src/targets/ubuntu
   else
     echo "👽 unknown runtime, send help"
     exit 1

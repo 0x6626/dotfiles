@@ -54,6 +54,10 @@ function target_is_codespaces() {
   [ -n "${CODESPACES+x}" ] || return 1
 }
 
+function target_is_ubuntu() {
+   grep -q Ubuntu < /etc/lsb-release
+}
+
 export DOTFILES_SETUP_SUCCESS_MARKER_PATH=/etc/dotfiles-setup-success
 
 function mark_setup_successful() {
