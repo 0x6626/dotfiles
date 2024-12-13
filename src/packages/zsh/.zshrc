@@ -1,4 +1,3 @@
-source $HOME/.zshrc.local
 source $HOME/.zsh/aliases
 source $HOME/.antigen/antigen.zsh
 
@@ -13,4 +12,4 @@ antigen apply
 
 eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && for f in ~/.zsh/**/*functions.zsh; do . $f; done
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+source $HOME/.zshrc.local
