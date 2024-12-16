@@ -11,7 +11,7 @@ unstage = !git reset
 commit-diff = !git cherry -v
 
 [core]
-	autocrlf = input
+autocrlf = input
 excludesfile = ~/.gitignore
 
 [diff]
@@ -40,6 +40,7 @@ user = nodeselector
 
 [push]
 default = simple
+	autoSetupRemote = true
 
 [credential "https://github.com"]
 helper = !gh auth git-credential
@@ -49,4 +50,9 @@ ff = only
 
 [init]
 templateDir = ~/.git_template
-	defaultBranch = main
+defaultBranch = main
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
