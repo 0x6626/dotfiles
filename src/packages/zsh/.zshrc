@@ -1,3 +1,4 @@
+source $HOME/.zshrc.local
 source $HOME/.zsh/aliases
 source $HOME/.antigen/antigen.zsh
 
@@ -12,4 +13,3 @@ antigen apply
 
 eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && for f in ~/.zsh/**/*functions.zsh; do . $f; done
-source $HOME/.zshrc.local
